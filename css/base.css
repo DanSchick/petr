@@ -3,7 +3,6 @@ header{
     width: 100%;
     height: 60px;
     background-color: rgba(116,220,232,.4);
-    border-bottom: thin solid lightgrey;
 }
 a.pageTitle{
     height: 30px;
@@ -39,12 +38,19 @@ img.menuIcon{
 }
 nav:hover > ol{
     display: block;
-    background-color: white;
-    border: thin solid grey;
-    width: 120%;
+    background-color: rgba(116,220,232,.4);
+    border-bottom: thin solid lightgrey;
+    width: 175%;
     position: relative;
-    top: -17px;
+    top: -20px;
+    margin-left: 0px;
     
+}
+nav:hover > ol li{
+    list-style: none;
+    font-size: 125%;
+    padding: .5em;
+    border-bottom: thin solid lightgrey;
 }
 /******* BODY SECTION ************/
 body{
