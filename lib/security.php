@@ -4,9 +4,9 @@
 //performs a few security checks
 function securityCheck($path_parts, $yourURL, $form = false) {
     $passed = true; // start off thinking everything is good until a test fails
-    
+
     $debug = false;
-    
+
     //not completly safe
     if (isset($_SERVER['HTTP_REFERER'])) {
         $link = htmlentities($_SERVER['HTTP_REFERER'], ENT_QUOTES, "UTF-8");
@@ -15,18 +15,43 @@ function securityCheck($path_parts, $yourURL, $form = false) {
     } else {
         $fromPage = "noplace";
     }
-    
+
     // add all your page names to this array
     $whiteListPages = array();
+    $whiteListPages[] = "q01.php";
+    $whiteListPages[] = "q02.php";
+    $whiteListPages[] = "q03.php";
+    $whiteListPages[] = "q04.php";
+    $whiteListPages[] = "q05.php";
+    $whiteListPages[] = "q06.php";
+    $whiteListPages[] = "q07.php";
+    $whiteListPages[] = "q08.php";
+    $whiteListPages[] = "q09.php";
+    $whiteListPages[] = "q10.php";
+    $whiteListPages[] = "security.php";
+    $whiteListPages[] = "select.php";
+    $whiteListPages[] = "tables.php";
+    $whiteListPages[] = "join.php";
+    $whiteListPages[] = "upload.php";
     $whiteListPages[] = "index.php";
-    $whiteListPages[] = "matches.php";
-    
+    $whiteListPages[] = "populate-table.php";
+    $whiteListPages[] = "friday.php";
+    $whiteListPages[] = "populate-enrolled.php";
 
     //add all the folders to this array
     $whiteListFolders = array();
-    $whiteListFolders[] = "/cs148";
-    $whiteListFolders[] = "/cs148/petr";
-    $whiteListFolders[] = "/cs148develop/petr";
+    $whiteListFolders[] = "/misc";
+    $whiteListFolders[] = "/advising";
+    $whiteListFolders[] = "/cs148/advising";
+    $whiteListFolders[] = "/cs148develop/assignment3.0";
+    $whiteListFolders[] = "/cs148develop/advising";
+    $whiteListFolders[] = "/cs148develop/pettr";
+    $whiteListFolders[] = "/cs148develop/assignment3.0";
+    $whiteListFolders[] = "/cs148/assignment2.0";
+    $whiteListFolders[] = "/cs148develop/assignment2.0";
+    $whiteListFolders[] = "/cs148/assignment1.0";
+    $whiteListFolders[] = "/education/cs148/assignment1.0";
+    $whiteListFolders[] = "/develop/cs148/assignment1.0";
 
     // Check for valid page name
     if (!in_array($path_parts['basename'], $whiteListPages)) {
@@ -48,7 +73,7 @@ function securityCheck($path_parts, $yourURL, $form = false) {
     }
 
     // when it is a form page check to make sure it submitted to itself
-    if ($form) { 
+    if ($form) {
         $errorMsg[] = "<p>From: " . $fromPage . " should match your Url: " . $yourURL;
         if ($fromPage != $yourURL) {
             $passed = false;
@@ -73,7 +98,7 @@ function securityCheck($path_parts, $yourURL, $form = false) {
         print_r($whiteListFolders);
         print "</pre></p>";
     }
-    
+
     if (!$passed) {
         //send message to me
         $message = "<p>Login failed: " . date("F j, Y") . " at " . date("h:i:s") . "</p>\n" . $message;

@@ -1,6 +1,8 @@
 <?php
 
 include 'top.php';
+$query = 'SELECT * FROM tblPets';
+$info = $thisDatabaseReader->select($query,"",0,0,0,0);
 
 ?>
 <article>
@@ -28,7 +30,7 @@ include 'top.php';
         <a href=''><img src='images/check.png' class='check' alt='Interested' title='check'></a>
         <div class='align'></div>
     </figure>
-    
+
 </article>
 <?php
 include 'footer.php';
