@@ -127,6 +127,13 @@ require_once('lib/custom-functions.php');
 
     <!-- **********************     Body section      ********************** -->
     <?php
+    // $username = htmlentities($_SERVER["REMOTE_USER"], ENT_QUOTES, "UTF-8");
+    // $nonOwnerQuery = $thisDatabaseReader->select("SELECT * FROM tblNonOwners WHERE pmkId=?",array($username), 1, 0, 0, 0);
+    // $OwnerQuery = $thisDatabaseReader->select("SELECT * FROM tblOwners WHERE pmkId=?",array($username), 1, 0, 0, 0);
+    //print_r($nonOwnerQuery, $OwnerQuery);
+    // if(empty($OwnerQuery) AND empty($NonOwnerQuery)){
+    //     HEADER('Location: newUser.php');
+    // }
     print '<body id="' . $path_parts['filename'] . '">';
     include "header.php";
     ?>

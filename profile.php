@@ -1,12 +1,21 @@
 <?php
 include 'top.php';
-$username = htmlentities($_SERVER["REMOTE_USER"], ENT_QUOTES, "UTF-8");
 $query = 'SELECT * FROM tblOwners WHERE pmkId=?';
 $data = array($username);
 $user = $thisDatabaseReader->select($query, $data, 1, 0, 0, 0);
 $query = 'SELECT fldURL FROM tblPhotos INNER JOIN tblUserPhotos ON tblPhotos.pmkPhotoId=tblUserPhotos.fnkPhotoId WHERE tblUserPhotos.fnkUserId=?';
 $data = array($username);
 $photo = $thisDatabaseReader->select($query, $data, 1, 0, 0, 0);
+if ($_POST){
+    $newName = $_POST['fldPetName']
+
+    $query = 'UPDATE tblOwners
+SET fldDesc = ?, `fldOwnerName`=?,`fldEmail`=?,`fldPhone`=?,`fldCity`=?,`fldPetName`=?,`fldPetType`=?,`fldPetAge`=?,`fldState`=?
+WHERE pmkId = ?';
+    $data=array($_POST['fldDesc']);
+
+
+}
 
 ?>
 <article>
