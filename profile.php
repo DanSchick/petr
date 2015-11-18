@@ -6,6 +6,16 @@ $user = $thisDatabaseReader->select($query, $data, 1, 0, 0, 0);
 $query = 'SELECT fldURL FROM tblPhotos INNER JOIN tblUserPhotos ON tblPhotos.pmkPhotoId=tblUserPhotos.fnkPhotoId WHERE tblUserPhotos.fnkUserId=?';
 $data = array($username);
 $photo = $thisDatabaseReader->select($query, $data, 1, 0, 0, 0);
+if ($_POST){
+    $newName = $_POST['fldPetName']
+
+    $query = 'UPDATE tblOwners
+SET fldDesc = ?, `fldOwnerName`=?,`fldEmail`=?,`fldPhone`=?,`fldCity`=?,`fldPetName`=?,`fldPetType`=?,`fldPetAge`=?,`fldState`=?
+WHERE pmkId = ?';
+    $data=array($_POST['fldDesc']);
+
+
+}
 
 ?>
 <article>
