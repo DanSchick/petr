@@ -125,6 +125,7 @@ require_once('lib/custom-functions.php');
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <!-- <script src="https://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script> -->
     </head>
 
     <!-- **********************     Body section      ********************** -->
