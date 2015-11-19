@@ -36,6 +36,7 @@ function securityCheck($path_parts, $yourURL, $form = false) {
     $whiteListPages[] = "tables.php";
     $whiteListPages[] = "join.php";
     $whiteListPages[] = "upload.php";
+    $whiteListPages[] = "profileUpdate.php";
     $whiteListPages[] = "index.php";
     $whiteListPages[] = "populate-table.php";
     $whiteListPages[] = "friday.php";
