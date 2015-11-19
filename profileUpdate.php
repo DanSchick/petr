@@ -91,6 +91,7 @@ if (isset($_POST["btnSubmit"])) {
         $errorMsg[] = "Please write a short description of your pet, and what you're looking for.";
         $petDescError = true;
     }
+}
     if (!errorMsg) {
         if ($_POST) {
             //$newName = $_POST['fldPetName'];
@@ -237,12 +238,9 @@ if (isset($_POST["btnSubmit"])) {
                        onfocus="this.select()"
                        autofocus="">
             </label>
+            <input type="submit" id="btnSubmit" name="btnSubmit" value="Make Changes" tabindex="900" class="button">
         </fieldset>
-        <figure class='swipe'>
-            <a href=''><img src='images/cross.png' class='cross' alt='Not Interested' title='cross'></a>
-            <a href=''><img src='images/check.png' class='check' alt='Interested' title='check'></a>
-            <div class='align'></div>
-        </figure>
+
 
     </form>
     <?php
@@ -250,4 +248,3 @@ if (isset($_POST["btnSubmit"])) {
     ?>
 </body>
 </html>
-<ethan></ethan>
