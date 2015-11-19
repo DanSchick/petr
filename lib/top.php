@@ -123,19 +123,16 @@ require_once('lib/custom-functions.php');
         $thisDatabaseAdmin = new Database($dbUserName, $whichPass, $dbName);
         ?>
 
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-        <!-- <script src="https://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script> -->
     </head>
 
     <!-- **********************     Body section      ********************** -->
     <?php
-    $username = htmlentities($_SERVER["REMOTE_USER"], ENT_QUOTES, "UTF-8");
+    // $username = htmlentities($_SERVER["REMOTE_USER"], ENT_QUOTES, "UTF-8");
     // $nonOwnerQuery = $thisDatabaseReader->select("SELECT * FROM tblNonOwners WHERE pmkId=?",array($username), 1, 0, 0, 0);
     // $OwnerQuery = $thisDatabaseReader->select("SELECT * FROM tblOwners WHERE pmkId=?",array($username), 1, 0, 0, 0);
-    //print_r($nonOwnerQuery, $OwnerQuery);
+    // print_r($nonOwnerQuery, $OwnerQuery);
     // if(empty($OwnerQuery) AND empty($NonOwnerQuery)){
-    //     HEADER('Location: newUser.php');
+
     // }
     print '<body id="' . $path_parts['filename'] . '">';
     include "header.php";

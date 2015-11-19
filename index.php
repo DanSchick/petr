@@ -136,7 +136,8 @@ $(document).ready(function() {
     console.log(pics[picNum][0]);
     var url = 'url(' + pics[picNum][0] + ')';
 
-    document.getElementById("mainAva").style.backgroundImage = pics[picNum][0];
+    document.getElementById("mainAva").style.backgroundImage = url;
+
       picNum = picNum + 1;
     });
 

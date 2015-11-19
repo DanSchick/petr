@@ -3,6 +3,7 @@ include 'top.php';
 $query = 'SELECT * FROM tblOwners WHERE pmkId=?';
 $data = array($username);
 $user = $thisDatabaseReader->select($query, $data, 1, 0, 0, 0);
+
 $query = 'SELECT fldURL FROM tblPhotos INNER JOIN tblUserPhotos ON tblPhotos.pmkPhotoId=tblUserPhotos.fnkPhotoId WHERE tblUserPhotos.fnkUserId=?';
 $data = array($username);
 $photo = $thisDatabaseReader->select($query, $data, 1, 0, 0, 0);
