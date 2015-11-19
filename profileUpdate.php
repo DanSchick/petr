@@ -98,7 +98,7 @@ if (isset($_POST["btnSubmit"])) {
             //$query = 'UPDATE tblOwners SET fldDesc = ?, `fldOwnerName`=?,`fldEmail`=?,`fldPhone`=?,`fldCity`=?,`fldPetName`=?,`fldPetType`=?,`fldPetAge`=?,`fldState`=? WHERE pmkId = ?';
             //$data = array($_POST['fldDesc']);
         }
-    }
+    }}
     ?>
     <form>
         <section class="cardTitle">
@@ -121,7 +121,7 @@ if (isset($_POST["btnSubmit"])) {
                        ?>
                        onfocus="this.select()"
                        autofocus="">
-            </label>                
+            </label>
             <label for="txtPetAge" class="required">Pet Age
                 <input type="int" id="intPetAge" name="intPetAge"
                        value="<?php print $petAge; ?>"
@@ -226,10 +226,10 @@ if (isset($_POST["btnSubmit"])) {
                 <option value="WY">Wyoming</option>
             </select>
             <label for="txtPetDesc" class="required">Pet Description
-                <input type="text" id="txtPetDesc" name="txtPetDesc"
+                <input type="textarea" id="txtPetDesc" name="txtPetDesc"
                        value="<?php print $petDesc; ?>"
                        tabindex="100" maxlength="45" placeholder="Enter A Description Of Your Pet, and What You Are Looking For In Somebody Else!"
-                       <?php 
+                       <?php
                        if ($petDescError) {
                            print 'class="mistake"';
                        }

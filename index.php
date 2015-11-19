@@ -1,5 +1,9 @@
-<?php
 
+<!-- first, we import the libs for the image slider -->
+<script type='text/javascript' src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.7/slick.min.js"></script>
+
+<?php
 include 'top.php';
 // we get a query of every profile that the user hasn't seen before
 $query = 'SELECT * FROM tblOwners INNER JOIN tblSeen ON tblSeen.fnkProfileId=tblOwners.pmkId WHERE tblSeen.pmkUserId = ? AND tblSeen.fldSeen = 0';
@@ -9,7 +13,10 @@ $profiles = $thisDatabaseReader->select($query, $data, 1, 1);
 $query = 'SELECT fldURL FROM tblPhotos INNER JOIN tblUserPhotos ON tblPhotos.pmkPhotoId=tblUserPhotos.fnkPhotoId WHERE tblUserPhotos.fnkUserId=?';
 $data = array($username);
 $photo = $thisDatabaseReader->select($query, $data, 1, 0, 0, 0);
-print_r($photo);
+$count = 0;
+foreach($photo as $pic){
+    $count++;
+}
 
 ?>
 
@@ -47,12 +54,19 @@ print_r($photo);
         <h2 class="petTitleInfo">Golden Retriever, Age 6, Colchester, VT</h2>
     </section>
     <div class = "petImageHolder" id="container">
-            <div class="buddy" style="display: inline-block;"><div class="avatar" id='mainAva' style="background-image: url(images/alexDog.jpg)"></div></div>
-            <button id='next'>Next</button>
+
+            <div class="buddy" style="display: inline-block;">
+                <!-- <div class="avatar" id='mainAva' style="background-image: url(<?php echo $photo[0][0];?>)"></div> -->
+                <div class="avatar" style="background-image: url(<?php echo $photo[0][0];?>)"></div>
+                <div class="avatar" style="background-image: url(<?php echo $photo[1][0];?>)"></div>
+
+                </div>
+                <!-- <button id='next'>Next</button>
+                <button id='previous'>Previous</button> -->
     </div>
     <div id='wrapper'>
         <blockquote class="bigtext">
-            <h1>Info</h1>
+            <!-- <h1>Info</h1> -->
             <ul>
                 <li><span class='important'>Owner:</span> Alex Barnes</li>
                 <li><span class='important'>Location:</span> Colchester, VT</li>
@@ -109,7 +123,11 @@ function like(){
     }
 
 var picNum = 0;
+
+// now, we make all the onclick events
 $(document).ready(function() {
+
+    $('.buddy').slick();
 
 
 
@@ -131,14 +149,31 @@ $(document).ready(function() {
   });
 
   $("[id='next']").click(function() {
-    console.log('test');
     var pics = JSON.parse('<?php echo json_encode($photo);?>');
-    console.log(pics[picNum][0]);
-    var url = 'url(' + pics[picNum][0] + ')';
+    var picTotal = <?php echo $count;?>;
+    console.log(pics);
+    if(picNum != picTotal - 1){
+        picNum = picNum + 1;
+        var url = 'url(' + pics[picNum][0] + ')';
+        document.getElementById("mainAva").style.backgroundImage = url;
+    }
 
-    document.getElementById("mainAva").style.backgroundImage = url;
+    // if(1=1){
+    //     console.log('true');
+    //     } else{
+    //         picNum = picNum -1;
+    //     }
+    });
 
-      picNum = picNum + 1;
+    $("[id='previous']").click(function() {
+            var pics = JSON.parse('<?php echo json_encode($photo);?>');
+            var picTotal = <?php echo $count;?>;
+            console.log(pics);
+            if(picNum != 0){
+                picNum = picNum - 1;
+                var url = 'url(' + pics[picNum][0] + ')';
+                document.getElementById("mainAva").style.backgroundImage = url;
+            }
     });
 
 
