@@ -48,7 +48,7 @@ print_r($photo);
     </section>
     <div class = "petImageHolder" id="container">
             <div class="buddy" style="display: inline-block;"><div class="avatar" id='mainAva' style="background-image: url(images/alexDog.jpg)"></div></div>
-            <button id='next'>Next</button>
+            <button class = "buddy" id='next'>Next</button>
     </div>
     <div id='wrapper'>
         <blockquote class="bigtext">
@@ -136,7 +136,8 @@ $(document).ready(function() {
     console.log(pics[picNum][0]);
     var url = 'url(' + pics[picNum][0] + ')';
 
-    document.getElementById("mainAva").style.backgroundImage = pics[picNum][0];
+    document.getElementById("mainAva").style.backgroundImage = url;
+
       picNum = picNum + 1;
     });
 
