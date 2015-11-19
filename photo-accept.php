@@ -1,6 +1,5 @@
 <?php
 include "top.php";
-$username = htmlentities($_SERVER["REMOTE_USER"], ENT_QUOTES, "UTF-8");
 $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["photo"]["name"]);
 $uploadOk = 1;
