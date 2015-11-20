@@ -96,6 +96,31 @@ function like(){
 }
 
     function dislike(){
+<<<<<<< HEAD
+        $('.buddy').addClass('.fadeOut').delay(700).fadeOut(1);
+        //$('.buddy').find('.status').remove();
+        //$('.buddy').append('<div class="status dislike">Dislike!</div>');
+
+        // if ($('.buddy').is(':last-child')) {
+        //   $('.buddy:nth-child(1)').removeClass('rotate-left rotate-right').fadeIn(300);
+        //   alert('Na-na!');
+        // } else {
+        //   $('.buddy').next().removeClass('rotate-left rotate-right').fadeIn(400);
+        // }
+
+        var userID = '<?php echo $username;?>';
+        var profileID = '<?php echo $profiles[0]['pmkId'];?>';
+        var liked = 0;
+        $.post('insertRecord.php', { userid: userID, profileid : profileID, like : liked},
+                               function(returnedData){
+                                       console.log(returnedData);
+                                 });
+                $('#card').removeClass();
+                $('#card').addClass('box animate fadeOut one');
+                $('#holder').append('<div class="status dislike">Dislike!</div>');
+                setTimeout(function(){
+                        window.location.reload(true)},1500);
+=======
             $('.buddy').addClass('rotate-right').delay(700).fadeOut(1);
         $('.buddy').find('.status').remove();
         $('.buddy').append('<div class="status dislike">Dislike!</div>');
@@ -106,6 +131,7 @@ function like(){
         } else {
           $('.buddy').next().removeClass('rotate-left rotate-right').fadeIn(400);
         }
+>>>>>>> e2abc09571173bd26b4f710ec81898254ee0ddf2
     }
 
 var picNum = 0;
