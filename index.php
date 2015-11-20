@@ -117,7 +117,7 @@ include 'footer.php';
 
 // First, we declare the like and dislike functions
 function like(){
-        $('.buddy').addClass('rotate-left').delay(700).fadeOut(1);
+        //$('.buddy').addClass('rotate-left').delay(700).fadeOut(1);
         //$('.buddy').find('.status').remove();
 
         // Send data to insert through AJAX
@@ -132,7 +132,7 @@ function like(){
               console.log(returnedData);
         });
         $('#card').removeClass();
-        $('#card').addClass('box animate fadeOutRight one');
+        $('#card').addClass('box animate fadeOutRight');
         $('#holder').append('<div class="status like">Like!</div>');
         setTimeout(function(){
           window.location.reload(true)},1500);
@@ -147,7 +147,7 @@ function like(){
 }
 
     function dislike(){
-        $('.buddy').addClass('.fadeOut').delay(700).fadeOut(1);
+        //$('.buddy').addClass('.fadeOut').delay(700).fadeOut(1);
         //$('.buddy').find('.status').remove();
         //$('.buddy').append('<div class="status dislike">Dislike!</div>');
 
@@ -167,7 +167,7 @@ function like(){
                                        console.log(returnedData);
                                  });
             $('#card').removeClass();
-            $('#card').addClass('box animate fadeOut one');
+            $('#card').addClass('box animate fadeOutDown');
             $('#holder').append('<div class="status dislike">Dislike!</div>');
             setTimeout(function(){
                        window.location.reload(true)},1500);
