@@ -12,7 +12,7 @@ $photo = $thisDatabaseReader->select($queryTwo, $dataTwo, 1, 0, 0, 0);
 
 //Initialize every form element as a variable, and set the current content in the database to its default value.
 $petName = $user[0]['fldPetName'];
-$petAge = $user[0]['fldPetType'];
+$petAge = $user[0]['fldPetAge'];
 $petType = $user[0]['fldPetType'];
 $ownerName = $user[0]['fldOwnerName'];
 $ownerCity = $user[0]['fldCity'];
@@ -29,9 +29,11 @@ $petDescError = false;
 //Initalize arrays
 $errorMsg = array();
 $dataRecord = array();
-
+print "<p>WHAT</p>";
 if (isset($_POST["btnSubmit"])) {
-    //Sanitize data
+    
+    print "<p>were in</p>";
+//Sanitize data
     $petName = htmlentities($_POST["txtPetName"], ENT_QUOTES, "UTF-8");
     $dataRecord[] = $petName;
     $petAge = htmlentities($_POST["txtPetAge"], ENT_QUOTES, "UTF-8");
@@ -47,7 +49,7 @@ if (isset($_POST["btnSubmit"])) {
     $petDesc = htmlentities($_POST["txtPetDesc"], ENT_QUOTES, "UTF-8");
     $dataRecord[] = $petDesc;
 
-    //Check For Errors in the submission
+//Check For Errors in the submission
     if ($petName == "") {
         $errorMsg[] = "Please enter your Pets Name";
         $petNameError = true;
@@ -85,29 +87,52 @@ if (isset($_POST["btnSubmit"])) {
     }
     if ($ownerState == "") {
         $errorMsg[] = "Please select the state you reside in.";
-        $ownerStateError = true;
+        $ownerCityError = true;
     }
     if ($petDesc == "") {
         $errorMsg[] = "Please write a short description of your pet, and what you're looking for.";
         $petDescError = true;
     }
-    if (!errorMsg) {
-        if ($_POST) {
-            //$newName = $_POST['fldPetName'];
+    
+    print "<p>Error<pre>"; print_r($errorMsg); print "</pre></p>";
+    if (!$errorMsg) {
+        
 
-            //$query = 'UPDATE tblOwners SET fldDesc = ?, `fldOwnerName`=?,`fldEmail`=?,`fldPhone`=?,`fldCity`=?,`fldPetName`=?,`fldPetType`=?,`fldPetAge`=?,`fldState`=? WHERE pmkId = ?';
-            //$data = array($_POST['fldDesc']);
+        $updateQuery = 'UPDATE tblOwners SET fldDesc = ?, fldOwnerName = ?, fldCity =?, fldPetName =?, fldPetType = ?, fldPetAge = ? where pmkId = ?';
+        
+        
+        $updateData = array($_POST['txtPetDesc'], $_POST['txtOwnerName'], $_POST['txtOwnerCity'], $_POST['txtPetName'], $_POST['txtPetType'], $_POST['intPetAge'], $username);
+        $updater = $thisDatabaseWriter->update($updateQuery, $updateData, 1, 0, 0, 0);
+    }
+}
+?>
+<form action="<?php print $phpSelf; ?>">
+    <section class="cardTitle">
+        <h1 class="petTitle"><?php echo $user[0]['fldPetName']; ?></h1>
+        <h2 class="petTitleInfo"><?php print($user[0]['fldPetType'] . ', Age ' . $user[0]['fldPetAge'] . ', ' . $user[0]['fldCity'] . ', ' . $user[0]['fldState']); ?></h2>
+    </section>
+    <figure class="petImageHolder">
+        <img src="<?php echo $photo[0][0] ?>" class="petImage" alt="Murphy" title="Murphy">
+    </figure>
+   
+ <?php
+    if (isset($_POST["btnSubmit"])){
+
+        // SECTION 3b Error Messages
+        //
+        // display any error messages before we print out the form
+        if ($errorMsg) {
+            print '<div id="errors">';
+            print "<ol>\n";
+            foreach ($errorMsg as $err) {
+                print "<li>" . $err . "</li>\n";
+            }
+            print "</ol>\n";
+            print '</div>';
         }
-    }}
-    ?>
-    <form>
-        <section class="cardTitle">
-            <h1 class="petTitle"><?php echo $user[0]['fldPetName']; ?></h1>
-            <h2 class="petTitleInfo"><?php print($user[0]['fldPetType'] . ', Age ' . $user[0]['fldPetAge'] . ', ' . $user[0]['fldCity'] . ', ' . $user[0]['fldState']); ?></h2>
-        </section>
-        <figure class="petImageHolder">
-            <img src="<?php echo $photo[0][0] ?>" class="petImage" alt="Murphy" title="Murphy">
-        </figure>
+    }
+        ?>
+
         <fieldset class="petInfo">
             <h1>Info</h1>
             <label for="txtPetName" class="required">Pet Name
@@ -121,7 +146,7 @@ if (isset($_POST["btnSubmit"])) {
                        ?>
                        onfocus="this.select()"
                        autofocus="">
-            </label>
+            </label>                
             <label for="txtPetAge" class="required">Pet Age
                 <input type="int" id="intPetAge" name="intPetAge"
                        value="<?php print $petAge; ?>"
@@ -226,7 +251,7 @@ if (isset($_POST["btnSubmit"])) {
                 <option value="WY">Wyoming</option>
             </select>
             <label for="txtPetDesc" class="required">Pet Description
-                <input type="textarea" id="txtPetDesc" name="txtPetDesc"
+                <input type="text" id="txtPetDesc" name="txtPetDesc"
                        value="<?php print $petDesc; ?>"
                        tabindex="100" maxlength="45" placeholder="Enter A Description Of Your Pet, and What You Are Looking For In Somebody Else!"
                        <?php
@@ -237,12 +262,9 @@ if (isset($_POST["btnSubmit"])) {
                        onfocus="this.select()"
                        autofocus="">
             </label>
+            <input type="submit" id="btnSubmit" name="btnSubmit" value="Make Changes" tabindex="900" class="button">
         </fieldset>
-        <figure class='swipe'>
-            <a href=''><img src='images/cross.png' class='cross' alt='Not Interested' title='cross'></a>
-            <a href=''><img src='images/check.png' class='check' alt='Interested' title='check'></a>
-            <div class='align'></div>
-        </figure>
+
 
     </form>
     <?php
@@ -250,4 +272,3 @@ if (isset($_POST["btnSubmit"])) {
     ?>
 </body>
 </html>
-<ethan></ethan>

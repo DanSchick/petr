@@ -124,14 +124,8 @@ require_once('lib/custom-functions.php');
         ?>
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.8/slick.css"/>
-        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.8/slick-theme.css"/> -->
-
-        <script type='text/javascript' src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-        <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.7/slick.min.js"></script>
-
-        <script src="https://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script>
-
+        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <!-- <script src="https://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script> -->
     </head>
 
     <!-- **********************     Body section      ********************** -->
@@ -144,8 +138,6 @@ require_once('lib/custom-functions.php');
     //     HEADER('Location: newUser.php');
     // }
     print '<body id="' . $path_parts['filename'] . '">';
-
     include "header.php";
     ?>
-
 

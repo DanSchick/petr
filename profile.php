@@ -31,7 +31,7 @@ WHERE pmkId = ?';
         <img src="<?php echo $photo[0][0]?>" class="petImage" id='petImg' alt="Murphy" title="Murphy">
     </figure>
     <aside class="petInfo">
-        <h1>Info</h1>
+        <h1>Info<a href="profileUpdate.php"><button>Edit</button></a></h1>
         <ul>
             <li><?php echo $user[0]['fldPetName'];?></li>
             <li><?php echo $user[0]['fldPetAge'];?></li>
@@ -49,18 +49,6 @@ WHERE pmkId = ?';
 
 </article>
 
-<script>
-$(document).ready(function(e){
-    console.log('okay we cool');
-    var loadingImage = loadImage(
-        'uploads/1115151705_HDR.jpg',
-        function (img) {
-            document.getElementById("petImg").src = img.toDataURL();
-        },
-        {orientation: 1}
-    );
-};
-</script>
 <?php
 include 'footer.php';
 ?>

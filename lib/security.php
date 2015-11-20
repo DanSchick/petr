@@ -25,7 +25,6 @@ function securityCheck($path_parts, $yourURL, $form = false) {
     $whiteListPages[] = "profile.php";
     $whiteListPages[] = "q05.php";
     $whiteListPages[] = "q06.php";
-    $whiteListPages[] = "insertRecord.php";
     $whiteListPages[] = "photo-accept.php";
     $whiteListPages[] = "q07.php";
     $whiteListPages[] = "q08.php";
