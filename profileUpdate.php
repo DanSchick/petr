@@ -29,8 +29,10 @@ $petDescError = false;
 //Initalize arrays
 $errorMsg = array();
 $dataRecord = array();
-
-if (($_POST["btnSubmit"])) {
+print "<p>WHAT</p>";
+if (isset($_POST["btnSubmit"])) {
+    
+    print "<p>were in</p>";
 //Sanitize data
     $petName = htmlentities($_POST["txtPetName"], ENT_QUOTES, "UTF-8");
     $dataRecord[] = $petName;
@@ -91,16 +93,20 @@ if (($_POST["btnSubmit"])) {
         $errorMsg[] = "Please write a short description of your pet, and what you're looking for.";
         $petDescError = true;
     }
+    
+    print "<p>Error<pre>"; print_r($errorMsg); print "</pre></p>";
     if (!$errorMsg) {
         
 
         $updateQuery = 'UPDATE tblOwners SET fldDesc = ?, fldOwnerName = ?, fldCity =?, fldPetName =?, fldPetType = ?, fldPetAge = ? where pmkId = ?';
+        
+        
         $updateData = array($_POST['txtPetDesc'], $_POST['txtOwnerName'], $_POST['txtOwnerCity'], $_POST['txtPetName'], $_POST['txtPetType'], $_POST['intPetAge'], $username);
         $updater = $thisDatabaseWriter->update($updateQuery, $updateData, 1, 0, 0, 0);
     }
 }
 ?>
-<form>
+<form action="<?php print $phpSelf; ?>">
     <section class="cardTitle">
         <h1 class="petTitle"><?php echo $user[0]['fldPetName']; ?></h1>
         <h2 class="petTitleInfo"><?php print($user[0]['fldPetType'] . ', Age ' . $user[0]['fldPetAge'] . ', ' . $user[0]['fldCity'] . ', ' . $user[0]['fldState']); ?></h2>
