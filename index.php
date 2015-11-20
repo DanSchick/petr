@@ -57,8 +57,8 @@ foreach($photo as $pic){
 </body>
 </html>
 -->
-
-<article class='box animate fadeInLeft one'>
+<div id='holder'></div>
+<article id='card' class='box animate fadeInLeft one'>
     <section class="cardTitle">
         <h1 class="petTitle"><?php echo $profiles[0]['fldPetName'];?></h1>
         <h2 class="petTitleInfo"><?php echo $profiles[0]['fldPetType']?>, Age <?php echo $profiles[0]['fldPetAge']?>, <?php echo $profiles[0]['fldCity']?>, <?php echo $profiles[0]['fldState']?></h2>
@@ -119,7 +119,6 @@ include 'footer.php';
 function like(){
         $('.buddy').addClass('rotate-left').delay(700).fadeOut(1);
         //$('.buddy').find('.status').remove();
-        $('.buddy').append('<div class="status like">Like!</div>');
 
         // Send data to insert through AJAX
         var userID = '<?php echo $username;?>';
@@ -132,7 +131,11 @@ function like(){
               function(returnedData){
               console.log(returnedData);
         });
-        location.reload();
+        $('#card').removeClass();
+        $('#card').addClass('box animate fadeOutRight one');
+        $('#holder').append('<div class="status like">Like!</div>');
+        setTimeout(function(){
+          window.location.reload(true)},1500);
 
         // $.ajax({
         //     type: "POST", url: 'InsertRecord.php?userID=' + userID + '&profileID=' + profileID + '&liked=' + liked, success: function(result){
