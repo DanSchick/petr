@@ -7,7 +7,7 @@ if($_POST){
     $q = 'SELECT fldLiked FROM tblRelations WHERE fnkUserId = ? AND fnkProfileId = ?';
     $data = array($profileID, $userID);
     $match = $thisDatabaseReader->select($query, $data, 1, 1);
-    if($liked == 1 AND $match[0]['fldLiked'] == 'T'){
+    if($liked == 'T' AND $match[0]['fldLiked'] == 'T'){
         echo 'Match';
         $query = 'INSERT INTO DSCHICK_Pettr.tblRelations (fnkUserId, fnkProfileId, fldLiked, fldMatched) VALUES (?, ?, ?, ?)';
         $data = array($userID, $profileID, $liked, 'T');
