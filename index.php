@@ -123,7 +123,7 @@ function like(){
         // Send data to insert through AJAX
         var userID = '<?php echo $username;?>';
         var profileID = '<?php echo $profiles[0]['pmkId'];?>';
-        var liked = 1;
+        var liked = 'T';
         var postData = 'userID=' + userID + '&profileID=' + profileID + '&liked=' + liked;
         console.log(postData);
 
@@ -160,7 +160,7 @@ function like(){
 
         var userID = '<?php echo $username;?>';
         var profileID = '<?php echo $profiles[0]['pmkId'];?>';
-        var liked = 0;
+        var liked = 'F';
         var postData = 'userID=' + userID + '&profileID=' + profileID + '&liked=' + liked;
         $.post('insertRecord.php', { userid: userID, profileid : profileID, like : liked},
                                function(returnedData){
