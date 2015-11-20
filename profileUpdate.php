@@ -36,7 +36,7 @@ if (isset($_POST["btnSubmit"])) {
 //Sanitize data
     $petName = htmlentities($_POST["txtPetName"], ENT_QUOTES, "UTF-8");
     $dataRecord[] = $petName;
-    $petAge = htmlentities($_POST["txtPetAge"], ENT_QUOTES, "UTF-8");
+    $petAge = htmlentities($_POST["intPetAge"], ENT_QUOTES, "UTF-8");
     $dataRecord[] = $petAge;
     $petType = htmlentities($_POST["txtPetType"], ENT_QUOTES, "UTF-8");
     $dataRecord[] = $petType;
@@ -44,7 +44,7 @@ if (isset($_POST["btnSubmit"])) {
     $dataRecord[] = $ownerName;
     $ownerCity = htmlentities($_POST["txtOwnerCity"], ENT_QUOTES, "UTF-8");
     $dataRecord[] = $ownerCity;
-    $ownerState = htmlentities($_POST["txtOwnerState"], ENT_QUOTES, "UTF-8");
+    $ownerState = htmlentities($_POST["lstOwnerState"], ENT_QUOTES, "UTF-8");
     $dataRecord[] = $ownerState;
     $petDesc = htmlentities($_POST["txtPetDesc"], ENT_QUOTES, "UTF-8");
     $dataRecord[] = $petDesc;
@@ -60,7 +60,7 @@ if (isset($_POST["btnSubmit"])) {
     if ($petAge == "") {
         $errorMsg[] = "Please enter your Pets Age";
         $petAgeError = true;
-    } elseif (!verifyNum($petAge)) {
+    } elseif (!verifyNumeric($petAge)) {
         $errorMsg[] = "Your pets age isn't a number.";
         $petAgeError = true;
     }
@@ -106,7 +106,7 @@ if (isset($_POST["btnSubmit"])) {
     }
 }
 ?>
-<form action="<?php print $phpSelf; ?>">
+<form action="<?php print $phpSelf; ?>" method="POST" id="frmRegister">
     <section class="cardTitle">
         <h1 class="petTitle"><?php echo $user[0]['fldPetName']; ?></h1>
         <h2 class="petTitleInfo"><?php print($user[0]['fldPetType'] . ', Age ' . $user[0]['fldPetAge'] . ', ' . $user[0]['fldCity'] . ', ' . $user[0]['fldState']); ?></h2>
@@ -148,7 +148,7 @@ if (isset($_POST["btnSubmit"])) {
                        autofocus="">
             </label>                
             <label for="txtPetAge" class="required">Pet Age
-                <input type="int" id="intPetAge" name="intPetAge"
+                <input type="number" id="intPetAge" name="intPetAge"
                        value="<?php print $petAge; ?>"
                        tabindex="100" maxlength="45" placeholder="Enter Your Pets Age"
                        <?php
@@ -196,7 +196,7 @@ if (isset($_POST["btnSubmit"])) {
                        autofocus="">
             </label>
 
-            <label for="State">State: </label>
+            <label for="lstState">State: </label>
             <select>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
