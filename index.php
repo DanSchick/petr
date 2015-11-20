@@ -5,18 +5,28 @@
 
 <?php
 include 'top.php';
+
+// okay. We need to insert a record of every relation that exists. if it already exists, ignore.
+$query = 'INSERT IGNORE INTO tblSeen(pmkUserId, fnkProfileId) (SELECT ?, tblOwners.pmkId FROM tblOwners)';
+$data = array($username);
+$insert = $thisDatabaseWriter->insert($query, $data);
+
 // we get a query of every profile that the user hasn't seen before
 $query = 'SELECT * FROM tblOwners INNER JOIN tblSeen ON tblSeen.fnkProfileId=tblOwners.pmkId WHERE tblSeen.pmkUserId = ? AND tblSeen.fldSeen = 0';
 $data = array($username);
 $profiles = $thisDatabaseReader->select($query, $data, 1, 1);
 
+
 $query = 'SELECT fldURL FROM tblPhotos INNER JOIN tblUserPhotos ON tblPhotos.pmkPhotoId=tblUserPhotos.fnkPhotoId WHERE tblUserPhotos.fnkUserId=?';
-$data = array($username);
+$data = array($profiles[0]['pmkId']);
 $photo = $thisDatabaseReader->select($query, $data, 1, 0, 0, 0);
+//print_r($profiles);
+
 $count = 0;
 foreach($photo as $pic){
     $count++;
 }
+
 
 ?>
 
@@ -48,17 +58,25 @@ foreach($photo as $pic){
 </html>
 -->
 
-<article>
+<article class='box animate fadeInLeft one'>
     <section class="cardTitle">
-        <h1 class="petTitle">Murphy</h1>
-        <h2 class="petTitleInfo">Golden Retriever, Age 6, Colchester, VT</h2>
+        <h1 class="petTitle"><?php echo $profiles[0]['fldPetName'];?></h1>
+        <h2 class="petTitleInfo"><?php echo $profiles[0]['fldPetType']?>, Age <?php echo $profiles[0]['fldPetAge']?>, <?php echo $profiles[0]['fldCity']?>, <?php echo $profiles[0]['fldState']?></h2>
     </section>
     <div class = "petImageHolder" id="container">
 
             <div class="buddy" style="display: inline-block;">
                 <!-- <div class="avatar" id='mainAva' style="background-image: url(<?php echo $photo[0][0];?>)"></div> -->
-                <div class="avatar" style="background-image: url(<?php echo $photo[0][0];?>)"></div>
-                <div class="avatar" style="background-image: url(<?php echo $photo[1][0];?>)"></div>
+                <?php
+                $picI = 0;
+                foreach ($photo as $pic){
+                    print '<div class="avatar" style="background-image: url(' . $pic[0] . ')"></div>';
+                }
+
+                ?>
+
+                <!-- <div class="avatar" style="background-image: url(<?php echo $photo[0][0];?>)"></div>
+                <div class="avatar" style="background-image: url(<?php echo $photo[1][0];?>)"></div> -->
 
                 </div>
                 <!-- <button id='next'>Next</button>
@@ -68,10 +86,10 @@ foreach($photo as $pic){
         <blockquote class="bigtext">
             <!-- <h1>Info</h1> -->
             <ul>
-                <li><span class='important'>Owner:</span> Alex Barnes</li>
-                <li><span class='important'>Location:</span> Colchester, VT</li>
-                <li><span class='important'>Pet Description:</span> Very playful, loves people, long walks, and playing catch.</li>
-                <li><span class='important'>Looking For:</span> Someone to walk and play with Murphy. Currently in school and don't have enough time to give him the love he needs.</li>
+                <li><span class='important'>Owner:</span> <?php echo $profiles[0]['fldOwnerName'];?></li>
+                <li><span class='important'>Location:</span> <?php echo $profiles[0]['fldCity'];?>, <?php echo $profiles[0]['fldState'];?> </li>
+                <li><span class='important'>Pet Description:</span> <?php echo $profiles[0]['fldDesc'];?></li>
+                <!-- <li><span class='important'>Looking For:</span> Someone to walk and play with Murphy. Currently in school and don't have enough time to give him the love he needs.</li> -->
             </ul>
         </blockquote>
             <p class="expand">Click to read more</p>
@@ -96,36 +114,64 @@ include 'footer.php';
 <!-- JAVASCRIPT SECTION -->
 <script>
 
+
 // First, we declare the like and dislike functions
 function like(){
         $('.buddy').addClass('rotate-left').delay(700).fadeOut(1);
-        $('.buddy').find('.status').remove();
-
+        //$('.buddy').find('.status').remove();
         $('.buddy').append('<div class="status like">Like!</div>');
-        if ($('.buddy').is(':last-child')) {
-          $('.buddy:nth-child(1)').removeClass('rotate-left rotate-right').fadeIn(300);
-        } else {
-          $('.buddy').next().removeClass('rotate-left rotate-right').fadeIn(400);
-    }
+
+        // Send data to insert through AJAX
+        var userID = '<?php echo $username;?>';
+        var profileID = '<?php echo $profiles[0]['pmkId'];?>';
+        var liked = 1;
+        var postData = 'userID=' + userID + '&profileID=' + profileID + '&liked=' + liked;
+        console.log(postData);
+
+        $.post('insertRecord.php', { userid: userID, profileid : profileID, like : liked},
+              function(returnedData){
+              console.log(returnedData);
+        });
+        location.reload();
+
+        // $.ajax({
+        //     type: "POST", url: 'InsertRecord.php?userID=' + userID + '&profileID=' + profileID + '&liked=' + liked, success: function(result){
+        //       console.log(result);
+        //       setTimeout(locaiton.reload(), 5000);
+        //     }
+        //     });
+
 }
 
     function dislike(){
-            $('.buddy').addClass('rotate-right').delay(700).fadeOut(1);
+        $('.buddy').addClass('.fadeOut').delay(700).fadeOut(1);
         $('.buddy').find('.status').remove();
         $('.buddy').append('<div class="status dislike">Dislike!</div>');
 
-        if ($('.buddy').is(':last-child')) {
-          $('.buddy:nth-child(1)').removeClass('rotate-left rotate-right').fadeIn(300);
-          alert('Na-na!');
-        } else {
-          $('.buddy').next().removeClass('rotate-left rotate-right').fadeIn(400);
-        }
+        // if ($('.buddy').is(':last-child')) {
+        //   $('.buddy:nth-child(1)').removeClass('rotate-left rotate-right').fadeIn(300);
+        //   alert('Na-na!');
+        // } else {
+        //   $('.buddy').next().removeClass('rotate-left rotate-right').fadeIn(400);
+        // }
+
+        var userID = '<?php echo $username;?>';
+        var profileID = '<?php echo $profiles[0]['pmkId'];?>';
+        var liked = 0;
+        var postData = 'userID=' + userID + '&profileID=' + profileID + '&liked=' + liked;
+        console.log(postData);
+        $.ajax({
+            type: "POST", url: "InsertRecord.php", data: postData,success: function(result){
+              setTimeout(locaiton.reload(), 5000);
+            }
+            });
     }
 
 var picNum = 0;
 
 // now, we make all the onclick events
 $(document).ready(function() {
+
 
     $('.buddy').slick();
 
