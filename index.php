@@ -148,8 +148,8 @@ function like(){
 
     function dislike(){
         $('.buddy').addClass('.fadeOut').delay(700).fadeOut(1);
-        $('.buddy').find('.status').remove();
-        $('.buddy').append('<div class="status dislike">Dislike!</div>');
+        //$('.buddy').find('.status').remove();
+        //$('.buddy').append('<div class="status dislike">Dislike!</div>');
 
         // if ($('.buddy').is(':last-child')) {
         //   $('.buddy:nth-child(1)').removeClass('rotate-left rotate-right').fadeIn(300);
@@ -161,13 +161,15 @@ function like(){
         var userID = '<?php echo $username;?>';
         var profileID = '<?php echo $profiles[0]['pmkId'];?>';
         var liked = 0;
-        var postData = 'userID=' + userID + '&profileID=' + profileID + '&liked=' + liked;
-        console.log(postData);
-        $.ajax({
-            type: "POST", url: "InsertRecord.php", data: postData,success: function(result){
-              setTimeout(locaiton.reload(), 5000);
-            }
-            });
+        $.post('insertRecord.php', { userid: userID, profileid : profileID, like : liked},
+                               function(returnedData){
+                                       console.log(returnedData);
+                                 });
+                $('#card').removeClass();
+                $('#card').addClass('box animate fadeOut one');
+                $('#holder').append('<div class="status dislike">Dislike!</div>');
+                setTimeout(function(){
+                        window.location.reload(true)},1500);
     }
 
 var picNum = 0;
