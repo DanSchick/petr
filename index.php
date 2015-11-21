@@ -129,11 +129,24 @@ function like(){
 
         $.post('insertRecord.php', { userid: userID, profileid : profileID, like : liked},
               function(returnedData){
-              console.log(returnedData);
+              if(returnedData != ""){
+              var data = JSON.parse(returnedData);
+              if(data["matched"] == '1'){
+                $('#card').removeClass();
+                $('#card').addClass('box animate fadeOutUp');
+                $('#holder').append('<div class="status like">Match!</div>');
+              } else {
+                $('#card').removeClass();
+                $('#card').addClass('box animate fadeOutRight');
+                $('#holder').append('<div class="status like">Like!</div>');
+              }} else {
+                $('#card').removeClass();
+                $('#card').addClass('box animate fadeOutRight');
+                $('#holder').append('<div class="status like">Like!</div>');
+
+              }
         });
-        $('#card').removeClass();
-        $('#card').addClass('box animate fadeOutRight');
-        $('#holder').append('<div class="status like">Like!</div>');
+
         setTimeout(function(){
           window.location.reload(true)},1500);
 
@@ -165,6 +178,7 @@ function like(){
         $.post('insertRecord.php', { userid: userID, profileid : profileID, like : liked},
                                function(returnedData){
                                        console.log(returnedData);
+
                                  });
             $('#card').removeClass();
             $('#card').addClass('box animate fadeOutDown');
