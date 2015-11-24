@@ -17,46 +17,19 @@ $data = array($username);
 $profiles = $thisDatabaseReader->select($query, $data, 1, 1);
 
 
+// we get all photos that belong to the first user in the profiles array we just selected
 $query = 'SELECT fldURL FROM tblPhotos INNER JOIN tblUserPhotos ON tblPhotos.pmkPhotoId=tblUserPhotos.fnkPhotoId WHERE tblUserPhotos.fnkUserId=?';
 $data = array($profiles[0]['pmkId']);
 $photo = $thisDatabaseReader->select($query, $data, 1, 0, 0, 0);
-//print_r($profiles);
 
 $count = 0;
 foreach($photo as $pic){
     $count++;
 }
 
-
 ?>
 
-
-<!--
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.css">
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script>
-</head>
-<body>
-  <div id="container">
-    <div class="buddy" style="display: block;"><div id="ava1" class="avatar"  style="display: block; background-image: url(http://www.keenthemes.com/preview/metronic/theme/assets/global/plugins/jcrop/demos/demo_files/image1.jpg)">
-      <section class='quickdesc'><button id='info'>More info</button>
-<p>
- DO DO DO DOOOOOOOOOOOOOOOOOOOO
-        </p> <button id='next'>Next</button></section></div></div>
-    <div class="buddy"><div class="avatar" style="display: block; background-image: url(http://static.stylemagazin.hu/medias/29280/Nem-ehezik-a-Women-of-the-Year-legjobb-modell-dijara-eselyes-szepseg_32fc7c86954a8847610499a0fc7261e2.jpg)">
-      <section class='quickdesc'><button>More info</button>
-<p>
-  More info here
-        </p></section></div></div></div></div>
-    <div class="buddy"><div class="avatar" style="display: block; background-image: url(http://w1nd.cc/promo/347.jpg)"></div></div>
-    <div class="buddy"><div class="avatar" style="display: block; background-image: url(http://static.168ora.hu/db/09/AF/orban-d0001C9AFa1ba9618c180.jpg)"></div></div>
-  </div>
-</body>
-</html>
--->
+<!-- ****************** BEGIN HTML PAGE **************** -->
 <div id='holder'></div>
 <article id='card' class='box animate fadeInLeft one'>
     <section class="cardTitle">
@@ -66,25 +39,16 @@ foreach($photo as $pic){
     <div class = "petImageHolder" id="container">
 
             <div class="buddy" style="display: inline-block;">
-                <!-- <div class="avatar" id='mainAva' style="background-image: url(<?php echo $photo[0][0];?>)"></div> -->
                 <?php
                 $picI = 0;
                 foreach ($photo as $pic){
                     print '<div class="avatar" style="background-image: url(' . $pic[0] . ')"></div>';
                 }
-
                 ?>
-
-                <!-- <div class="avatar" style="background-image: url(<?php echo $photo[0][0];?>)"></div>
-                <div class="avatar" style="background-image: url(<?php echo $photo[1][0];?>)"></div> -->
-
                 </div>
-                <!-- <button id='next'>Next</button>
-                <button id='previous'>Previous</button> -->
     </div>
     <div id='wrapper'>
         <blockquote class="bigtext">
-            <!-- <h1>Info</h1> -->
             <ul>
                 <li><span class='important'>Owner:</span> <?php echo $profiles[0]['fldOwnerName'];?></li>
                 <li><span class='important'>Location:</span> <?php echo $profiles[0]['fldCity'];?>, <?php echo $profiles[0]['fldState'];?> </li>
@@ -117,9 +81,6 @@ include 'footer.php';
 
 // First, we declare the like and dislike functions
 function like(){
-        //$('.buddy').addClass('rotate-left').delay(700).fadeOut(1);
-        //$('.buddy').find('.status').remove();
-
         // Send data to insert through AJAX
         var userID = '<?php echo $username;?>';
         var profileID = '<?php echo $profiles[0]['pmkId'];?>';
@@ -131,46 +92,32 @@ function like(){
               function(returnedData){
               if(returnedData != ""){
               var data = JSON.parse(returnedData);
-              if(data["matched"] == '1'){
-                $('#card').removeClass();
-                $('#card').addClass('box animate fadeOutUp');
-                $('#holder').append('<div class="status like">Match!</div>');
-              } else {
-                $('#card').removeClass();
-                $('#card').addClass('box animate fadeOutRight');
-                $('#holder').append('<div class="status like">Like!</div>');
-              }} else {
-                $('#card').removeClass();
-                $('#card').addClass('box animate fadeOutRight');
-                $('#holder').append('<div class="status like">Like!</div>');
+              // we execute this function on AJAX success
+                if(data["matched"] == '1'){
+                  $('#card').removeClass();
+                  $('#card').addClass('box animate fadeOutUp');
+                  $('#holder').append('<div class="status like">Match!</div>');
+                } else {
+                  $('#card').removeClass();
+                  $('#card').addClass('box animate fadeOutRight');
+                  $('#holder').append('<div class="status like">Like!</div>');
+                }} else {
+                  $('#card').removeClass();
+                  $('#card').addClass('box animate fadeOutRight');
+                  $('#holder').append('<div class="status like">Like!</div>');
 
-              }
+                }
         });
 
+        // reload page after 1.5 seconds
         setTimeout(function(){
           window.location.reload(true)},1500);
 
-        // $.ajax({
-        //     type: "POST", url: 'InsertRecord.php?userID=' + userID + '&profileID=' + profileID + '&liked=' + liked, success: function(result){
-        //       console.log(result);
-        //       setTimeout(locaiton.reload(), 5000);
-        //     }
-        //     });
 
 }
 
     function dislike(){
-        //$('.buddy').addClass('.fadeOut').delay(700).fadeOut(1);
-        //$('.buddy').find('.status').remove();
-        //$('.buddy').append('<div class="status dislike">Dislike!</div>');
-
-        // if ($('.buddy').is(':last-child')) {
-        //   $('.buddy:nth-child(1)').removeClass('rotate-left rotate-right').fadeIn(300);
-        //   alert('Na-na!');
-        // } else {
-        //   $('.buddy').next().removeClass('rotate-left rotate-right').fadeIn(400);
-        // }
-
+        // prepare data for AJAX POST
         var userID = '<?php echo $username;?>';
         var profileID = '<?php echo $profiles[0]['pmkId'];?>';
         var liked = 'F';
@@ -193,10 +140,8 @@ var picNum = 0;
 $(document).ready(function() {
 
 
+    // this creates the image slider
     $('.buddy').slick();
-
-
-
   $(".buddy").on("swiperight", function() {
     like();
   });
@@ -213,7 +158,6 @@ $(document).ready(function() {
   $(".check").on("click", function() {
     like();
   });
-
   $("[id='next']").click(function() {
     var pics = JSON.parse('<?php echo json_encode($photo);?>');
     var picTotal = <?php echo $count;?>;

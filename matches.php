@@ -1,7 +1,13 @@
 <?php
 include 'top.php';
+
+// okay, let's get an array of all matches
+$query = "SELECT * FROM tblOwners INNER JOIN tblRelations ON tblOwners.pmkId = tblRelations.fnkProfileId
+WHERE tblRelations.fldMatched = ? AND tblRelations.fnkUserId = ?";
+$data = array("T", $username);
+$profiles = $thisDatabaseReader->select($query, $data, 0, 1);
 ?>
-<article>
+<article id="matches" class="box animate fadeIn one">
     <section class="cardTitle">
         <h1 class="petTitle">Matches</h1>
     </section>
@@ -10,20 +16,22 @@ include 'top.php';
         <thead>
             <tr>
                 <th></th>
-                <th>Pet Name</th>
-                <th>Owner Name</th>
-                <th>Pet Type</th>
-                <th>Location</th>
+                <th> Pet Name </th>
+                <th> Owner Name </th>
+                <th> Pet Type </th>
+                <th> Location </th>
             </tr>
         </thead>
-        <tr>
+        <?php
+        foreach($profiles as $prof){
+            print '<tr>
             <td><img></td>
-            <td>Murphy</td>
-            <td>Alex Barnes</td>
-            <td>Dog</td>
-            <td>Colchester, VT</td>
-        </tr>
-        <tr>
+            <td> <a href=match.php?username=' . $prof['pmkId'] . '>' . $prof['fldPetName'] . '</a> </td>
+            <td> ' . $prof['fldOwnerName'] . ' </td>
+            <td> ' . $prof['fldPetType'] . ' </td>
+            <td> ' . $prof['fldCity'] . ', ' .  $prof['fldState'] . ' </td>
+        </tr>';}?>
+        <!-- <tr>
             <td><img></td>
             <td>Leo</td>
             <td>Danny Schick</td>
@@ -36,7 +44,7 @@ include 'top.php';
             <td>Matt Lucier</td>
             <td>Dog</td>
             <td>Nowhere, Delawhere</td>
-        </tr>
+        </tr> -->
     </table>
 
 </article>
