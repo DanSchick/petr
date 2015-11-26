@@ -471,6 +471,39 @@ animation-delay: 3.3s;
   animation-name: fadeInUp;
 }
 
+/*==== FADE OUT UP ===*/
+@-webkit-keyframes fadeOutUp {
+  from {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, -150%, 0);
+    transform: translate3d(0, -150%, 0);
+  }
+}
+@keyframes fadeOutUp {
+  from {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, -150%, 0);
+    transform: translate3d(0, -150%, 0);
+  }
+}
+
+.fadeOutUp {
+  -webkit-animation-name: fadeOutUp;
+  animation-name: fadeOutUp;
+}
+
 /*=== FADE IN LEFT ===*/
 @-webkit-keyframes fadeInLeft {
   from {
