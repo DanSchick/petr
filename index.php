@@ -22,11 +22,6 @@ $query = 'SELECT fldURL FROM tblPhotos INNER JOIN tblUserPhotos ON tblPhotos.pmk
 $data = array($profiles[0]['pmkId']);
 $photo = $thisDatabaseReader->select($query, $data, 1, 0, 0, 0);
 
-$count = 0;
-foreach($photo as $pic){
-    $count++;
-}
-
 ?>
 
 <!-- ****************** BEGIN HTML PAGE **************** -->
@@ -53,7 +48,6 @@ foreach($photo as $pic){
                 <li><span class='important'>Owner:</span> <?php echo $profiles[0]['fldOwnerName'];?></li>
                 <li><span class='important'>Location:</span> <?php echo $profiles[0]['fldCity'];?>, <?php echo $profiles[0]['fldState'];?> </li>
                 <li><span class='important'>Pet Description:</span> <?php echo $profiles[0]['fldDesc'];?></li>
-                <!-- <li><span class='important'>Looking For:</span> Someone to walk and play with Murphy. Currently in school and don't have enough time to give him the love he needs.</li> -->
             </ul>
         </blockquote>
             <p class="expand">Click to read more</p>
@@ -101,17 +95,18 @@ function like(){
                   $('#card').removeClass();
                   $('#card').addClass('box animate fadeOutRight');
                   $('#holder').append('<div class="status like">Like!</div>');
-                }} else {
+                  console.log("flag 1, first if");
+                }
+              } else {
+                  console.log("flag 2, else");
                   $('#card').removeClass();
                   $('#card').addClass('box animate fadeOutRight');
                   $('#holder').append('<div class="status like">Like!</div>');
-
                 }
         });
-
         // reload page after 1.5 seconds
         setTimeout(function(){
-          window.location.reload(true)},1500);
+          window.location.reload(true)},1000);
 
 
 }
@@ -125,14 +120,14 @@ function like(){
         $.post('insertRecord.php', { userid: userID, profileid : profileID, like : liked},
                                function(returnedData){
                                        console.log(returnedData);
-
                                  });
+            // animate the dislike
             $('#card').removeClass();
             $('#card').addClass('box animate fadeOutDown');
             $('#holder').append('<div class="status dislike">Dislike!</div>');
             setTimeout(function(){
-                       window.location.reload(true)},1500);
-    }
+                window.location.reload(true)},1000);
+  }
 
 var picNum = 0;
 
@@ -158,33 +153,28 @@ $(document).ready(function() {
   $(".check").on("click", function() {
     like();
   });
-  $("[id='next']").click(function() {
-    var pics = JSON.parse('<?php echo json_encode($photo);?>');
-    var picTotal = <?php echo $count;?>;
-    console.log(pics);
-    if(picNum != picTotal - 1){
-        picNum = picNum + 1;
-        var url = 'url(' + pics[picNum][0] + ')';
-        document.getElementById("mainAva").style.backgroundImage = url;
-    }
+  // $("[id='next']").click(function() {
+  //   var pics = JSON.parse('<?php echo json_encode($photo);?>');
+  //   var picTotal = <?php echo $count;?>;
+  //   console.log(pics);
+  //   if(picNum != picTotal - 1){
+  //       picNum = picNum + 1;
+  //       var url = 'url(' + pics[picNum][0] + ')';
+  //       document.getElementById("mainAva").style.backgroundImage = url;
+  //   }
 
-    // if(1=1){
-    //     console.log('true');
-    //     } else{
-    //         picNum = picNum -1;
-    //     }
-    });
+  //   });
 
-    $("[id='previous']").click(function() {
-            var pics = JSON.parse('<?php echo json_encode($photo);?>');
-            var picTotal = <?php echo $count;?>;
-            console.log(pics);
-            if(picNum != 0){
-                picNum = picNum - 1;
-                var url = 'url(' + pics[picNum][0] + ')';
-                document.getElementById("mainAva").style.backgroundImage = url;
-            }
-    });
+  //   $("[id='previous']").click(function() {
+  //           var pics = JSON.parse('<?php echo json_encode($photo);?>');
+  //           var picTotal = <?php echo $count;?>;
+  //           console.log(pics);
+  //           if(picNum != 0){
+  //               picNum = picNum - 1;
+  //               var url = 'url(' + pics[picNum][0] + ')';
+  //               document.getElementById("mainAva").style.backgroundImage = url;
+  //           }
+  //   });
 
 
   /**

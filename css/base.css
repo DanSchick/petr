@@ -24,6 +24,13 @@ img.pageTitle{
     margin: auto;
     margin-top: 10px;
 }
+th {
+    padding-right: 5px;
+}
+td{
+    padding-right: 2px;
+    padding-left: 2px;
+}
 figure{
     margin-top: 0px;
     margin: auto;

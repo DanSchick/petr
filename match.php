@@ -50,10 +50,10 @@ $photo = $thisDatabaseReader->select($query, $data, 1, 0, 0, 0);
 
 </article>
 <script>
-$('.buddy').slick();
 
 $(document).ready(function() {
 
+    $('.buddy').slick();
 
     $(function(){
   var animspeed = 950; // animation speed in milliseconds

@@ -130,7 +130,9 @@ require_once('lib/custom-functions.php');
         <script type='text/javascript' src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
         <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.7/slick.min.js"></script>
 
-        <script src="https://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script>
+        <?php if($path_parts['filename'] != 'upload'){
+        print '<script src="https://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script>';
+        }?>
 
     </head>
 
