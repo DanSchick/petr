@@ -65,9 +65,7 @@ if($username == 'dschick'){
     </figure>
 
 </article>
-<?php
-include 'footer.php';
-?>
+
 </body>
 </html>
 
@@ -131,7 +129,7 @@ function like(){
             $('#card').addClass('box animate fadeOutDown');
             $('#holder').append('<div class="status dislike">Dislike!</div>');
             setTimeout(function(){
-                window.location.reload(true)},1000);
+                window.location.reload()},1000);
   }
 
 var picNum = 0;
@@ -158,29 +156,6 @@ $(document).ready(function() {
   $(".check").on("click", function() {
     like();
   });
-  // $("[id='next']").click(function() {
-  //   var pics = JSON.parse('<?php echo json_encode($photo);?>');
-  //   var picTotal = <?php echo $count;?>;
-  //   console.log(pics);
-  //   if(picNum != picTotal - 1){
-  //       picNum = picNum + 1;
-  //       var url = 'url(' + pics[picNum][0] + ')';
-  //       document.getElementById("mainAva").style.backgroundImage = url;
-  //   }
-
-  //   });
-
-  //   $("[id='previous']").click(function() {
-  //           var pics = JSON.parse('<?php echo json_encode($photo);?>');
-  //           var picTotal = <?php echo $count;?>;
-  //           console.log(pics);
-  //           if(picNum != 0){
-  //               picNum = picNum - 1;
-  //               var url = 'url(' + pics[picNum][0] + ')';
-  //               document.getElementById("mainAva").style.backgroundImage = url;
-  //           }
-  //   });
-
 
   /**
    * This function will create the expand/collapse functionality
@@ -218,3 +193,7 @@ $(document).ready(function() {
 
 });
 </script>
+
+<?php
+include 'footer.php';
+?>

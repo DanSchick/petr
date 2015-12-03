@@ -16,6 +16,7 @@ if(isset($_POST["submit"])) {
     $query = 'INSERT INTO `DSCHICK_Pettr`.`tblUserPhotos` (`fnkUserId`, `fnkPhotoId`) VALUES (?, NULL)';
     $data = array($username);
     $insert = $thisDatabaseWriter->insert($query, $data);
+    header("Location: profile.php");
 
 
 }

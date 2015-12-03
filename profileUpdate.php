@@ -30,7 +30,7 @@ $petDescError = false;
 $errorMsg = array();
 $dataRecord = array();
 if (isset($_POST["btnSubmit"])) {
-    
+
 //Sanitize data
     $petName = htmlentities($_POST["txtPetName"], ENT_QUOTES, "UTF-8");
     $dataRecord[] = $petName;
@@ -91,15 +91,16 @@ if (isset($_POST["btnSubmit"])) {
         $errorMsg[] = "Please write a short description of your pet, and what you're looking for.";
         $petDescError = true;
     }
-    
+
     if (!$errorMsg) {
-        
+
 
         $updateQuery = 'UPDATE tblOwners SET fldDesc = ?, fldOwnerName = ?, fldCity =?, fldPetName =?, fldPetType = ?, fldPetAge = ?, fldState = ? where pmkId = ?';
-        
-        
+
+
         $updateData = array($_POST['txtPetDesc'], $_POST['txtOwnerName'], $_POST['txtOwnerCity'], $_POST['txtPetName'], $_POST['txtPetType'], $_POST['intPetAge'], $_POST['lstOwnerState'], $username);
         $updater = $thisDatabaseWriter->update($updateQuery, $updateData, 1, 0, 0, 0);
+        header("Location: profile.php");
     }
 }
 ?>
@@ -110,22 +111,32 @@ if (isset($_POST["btnSubmit"])) {
         <h1 class="petTitle"><?php echo $user[0]['fldPetName']; ?></h1>
         <h2 class="petTitleInfo"><?php print($user[0]['fldPetType'] . ', Age ' . $user[0]['fldPetAge'] . ', ' . $user[0]['fldCity'] . ', ' . $user[0]['fldState']); ?></h2>
     </section>
-    <figure class="petImageHolder">
-        <img src="<?php echo $photo[0][0] ?>" class="petImage" alt="Murphy" title="Murphy">
-    </figure>
-   
+    <div id="container" class="petImageHolder">
+        <div class="buddy" style="display: inline-block;">
+                <?php
+                if(!$errorMsg){
+                  foreach ($photo as $pic){
+                    print '<div class="avatar" style="background-image: url(' . $pic[0] . ')"></div>';
+                    }
+                } else {
+                  print '<div class="avatar" style="background-image: url(' . $photo[0][0] . ')"></div>';
+                }
+                ?>
+                </div>
+    </div>
+    <div class='clas'><a href='upload.php' data-ajax="false"><button>Upload a photo</a></button></div>
+
  <?php
         // SECTION 3b Error Messages
         //
         // display any error messages before we print out the form
         if ($errorMsg) {
-            print '<section id="errors">';
-            print "<ol>\n";
+            print '<div id="errors">';
+            print "<ol class='errors'>\n";
             foreach ($errorMsg as $err) {
                 print "<li>" . $err . "</li>\n";
             }
             print "</ol>\n";
-            print '</section>';
         }
         ?>
 
@@ -142,7 +153,7 @@ if (isset($_POST["btnSubmit"])) {
                        ?>
                        onfocus="this.select()"
                        autofocus="">
-            </label>                
+            </label>
             <label for="intPetAge" class="required">Pet Age
                 <input type="text" id="intPetAge" name="intPetAge"
                        value="<?php print $petAge; ?>"
@@ -263,8 +274,17 @@ if (isset($_POST["btnSubmit"])) {
 
 
     </form>
+    <?php if(!$errorMsg){print "<script>
+  $('.buddy').slick();
+</script>";}?>
+
     <?php
     include 'footer.php';
     ?>
 </body>
 </html>
+
+
+
+
+

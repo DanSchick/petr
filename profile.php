@@ -17,11 +17,18 @@ $photo = $thisDatabaseReader->select($query, $data, 1, 0, 0, 0);
         <h1 class="petTitle"><?php echo $user[0]['fldPetName'];?></h1>
         <h2 class="petTitleInfo"><?php print($user[0]['fldPetType'] . ', Age ' . $user[0]['fldPetAge'] . ', ' . $user[0]['fldCity'] . ', ' . $user[0]['fldState']);?></h2>
     </section>
-    <figure class="petImageHolder">
-        <img src="<?php echo $photo[0][0]?>" class="petImage" id='petImg' alt="Murphy" title="Murphy">
+    <figure class="petImageHolder" id="container">
+        <div class="buddy" style="display: inline-block;">
+                <?php
+                $picI = 0;
+                foreach ($photo as $pic){
+                    print '<div class="avatar" style="background-image: url(' . $pic[0] . ')"></div>';
+                }
+                ?>
+        </div>
     </figure>
     <aside class="petInfo">
-        <h1>Info<a href="profileUpdate.php"><button>Edit</button></a></h1>
+        <h1>Info<a href="profileUpdate.php" data-ajax="false"><button>Edit</button></a></h1>
         <ul>
             <li><?php echo $user[0]['fldPetName'];?></li>
             <li><?php echo $user[0]['fldPetAge'];?></li>
@@ -33,7 +40,9 @@ $photo = $thisDatabaseReader->select($query, $data, 1, 0, 0, 0);
     </aside>
 
 </article>
-
+<script>
+$('.buddy').slick();
+</script>
 <?php
 include 'footer.php';
 ?>
