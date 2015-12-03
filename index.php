@@ -22,6 +22,11 @@ $query = 'SELECT fldURL FROM tblPhotos INNER JOIN tblUserPhotos ON tblPhotos.pmk
 $data = array($profiles[0]['pmkId']);
 $photo = $thisDatabaseReader->select($query, $data, 1, 0, 0, 0);
 
+if($username == 'dschick'){
+  $query = 'DELETE * FROM tblSeen';
+  $delete = $thisDatabaseWriter->delete($query, "", 0, 0);
+}
+
 ?>
 
 <!-- ****************** BEGIN HTML PAGE **************** -->
