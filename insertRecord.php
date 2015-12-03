@@ -115,10 +115,12 @@ if($_POST){
     // if no record exists in table
     if($match[0]['fldLiked'] == ""){
         if($liked == 'T'){
+            echo json_encode(array("matched" => "0"));
             $query = 'INSERT INTO DSCHICK_Pettr.tblRelations (fnkUserId, fnkProfileId, fldLiked, fldMatched) VALUES (?, ?, ?, ?)';
             $data = array($userID, $profileID, $liked, 'F');
             $insert = $thisDatabaseWriter->insert($query, $data);
         } else if($liked == 'F'){
+            echo json_encode(array("matched" => "0"));
             $query = 'INSERT INTO DSCHICK_Pettr.tblRelations (fnkUserId, fnkProfileId, fldLiked, fldMatched) VALUES (?, ?, ?, ?)';
             $data = array($userID, $profileID, $liked, 'F');
             $insert = $thisDatabaseWriter->insert($query, $data);
@@ -137,6 +139,7 @@ if($_POST){
             $data = array('T', $profileID, $userID);
             $insert = $thisDatabaseWriter->insert($query, $data, 1, 1);
         } else if ($liked == 'F'){
+            echo json_encode(array("matched" => "0"));
             $query = 'INSERT INTO DSCHICK_Pettr.tblRelations (fnkUserId, fnkProfileId, fldLiked, fldMatched) VALUES (?, ?, ?, ?)';
             $data = array($userID, $profileID, $liked, 'F');
             $insert = $thisDatabaseWriter->insert($query, $data);

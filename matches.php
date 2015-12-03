@@ -31,20 +31,6 @@ $profiles = $thisDatabaseReader->select($query, $data, 0, 1);
             <td> ' . $prof['fldPetType'] . ' </td>
             <td> ' . $prof['fldCity'] . ', ' .  $prof['fldState'] . ' </td>
         </tr>';}?>
-        <!-- <tr>
-            <td><img></td>
-            <td>Leo</td>
-            <td>Danny Schick</td>
-            <td>Cat</td>
-            <td>Colchester, VT</td>
-        </tr>
-        <tr>
-            <td><img></td>
-            <td>Toby</td>
-            <td>Matt Lucier</td>
-            <td>Dog</td>
-            <td>Nowhere, Delawhere</td>
-        </tr> -->
     </table>
 
 </article>
