@@ -29,10 +29,8 @@ $petDescError = false;
 //Initalize arrays
 $errorMsg = array();
 $dataRecord = array();
-print "<p>WHAT</p>";
 if (isset($_POST["btnSubmit"])) {
     
-    print "<p>were in</p>";
 //Sanitize data
     $petName = htmlentities($_POST["txtPetName"], ENT_QUOTES, "UTF-8");
     $dataRecord[] = $petName;
@@ -94,19 +92,20 @@ if (isset($_POST["btnSubmit"])) {
         $petDescError = true;
     }
     
-    print "<p>Error<pre>"; print_r($errorMsg); print "</pre></p>";
     if (!$errorMsg) {
         
 
-        $updateQuery = 'UPDATE tblOwners SET fldDesc = ?, fldOwnerName = ?, fldCity =?, fldPetName =?, fldPetType = ?, fldPetAge = ? where pmkId = ?';
+        $updateQuery = 'UPDATE tblOwners SET fldDesc = ?, fldOwnerName = ?, fldCity =?, fldPetName =?, fldPetType = ?, fldPetAge = ?, fldState = ? where pmkId = ?';
         
         
-        $updateData = array($_POST['txtPetDesc'], $_POST['txtOwnerName'], $_POST['txtOwnerCity'], $_POST['txtPetName'], $_POST['txtPetType'], $_POST['intPetAge'], $username);
+        $updateData = array($_POST['txtPetDesc'], $_POST['txtOwnerName'], $_POST['txtOwnerCity'], $_POST['txtPetName'], $_POST['txtPetType'], $_POST['intPetAge'], $_POST['lstOwnerState'], $username);
         $updater = $thisDatabaseWriter->update($updateQuery, $updateData, 1, 0, 0, 0);
     }
 }
 ?>
-<form action="<?php print $phpSelf; ?>" method="POST" id="frmRegister">
+<form action="<?php print $phpSelf; ?>"
+              method="post"
+              id="frmRegister">
     <section class="cardTitle">
         <h1 class="petTitle"><?php echo $user[0]['fldPetName']; ?></h1>
         <h2 class="petTitleInfo"><?php print($user[0]['fldPetType'] . ', Age ' . $user[0]['fldPetAge'] . ', ' . $user[0]['fldCity'] . ', ' . $user[0]['fldState']); ?></h2>
@@ -116,21 +115,18 @@ if (isset($_POST["btnSubmit"])) {
     </figure>
    
  <?php
-    if (isset($_POST["btnSubmit"])){
-
         // SECTION 3b Error Messages
         //
         // display any error messages before we print out the form
         if ($errorMsg) {
-            print '<div id="errors">';
+            print '<section id="errors">';
             print "<ol>\n";
             foreach ($errorMsg as $err) {
                 print "<li>" . $err . "</li>\n";
             }
             print "</ol>\n";
-            print '</div>';
+            print '</section>';
         }
-    }
         ?>
 
         <fieldset class="petInfo">
@@ -147,8 +143,8 @@ if (isset($_POST["btnSubmit"])) {
                        onfocus="this.select()"
                        autofocus="">
             </label>                
-            <label for="txtPetAge" class="required">Pet Age
-                <input type="number" id="intPetAge" name="intPetAge"
+            <label for="intPetAge" class="required">Pet Age
+                <input type="text" id="intPetAge" name="intPetAge"
                        value="<?php print $petAge; ?>"
                        tabindex="100" maxlength="45" placeholder="Enter Your Pets Age"
                        <?php
@@ -196,59 +192,59 @@ if (isset($_POST["btnSubmit"])) {
                        autofocus="">
             </label>
 
-            <label for="lstState">State: </label>
-            <select>
-                <option value="AL">Alabama</option>
-                <option value="AK">Alaska</option>
-                <option value="AZ">Arizona</option>
-                <option value="AR">Arkansas</option>
-                <option value="CA">California</option>
-                <option value="CO">Colorado</option>
-                <option value="CT">Connecticut</option>
-                <option value="DE">Delaware</option>
-                <option value="DC">District Of Columbia</option>
-                <option value="FL">Florida</option>
-                <option value="GA">Georgia</option>
-                <option value="HI">Hawaii</option>
-                <option value="ID">Idaho</option>
-                <option value="IL">Illinois</option>
-                <option value="IN">Indiana</option>
-                <option value="IA">Iowa</option>
-                <option value="KS">Kansas</option>
-                <option value="KY">Kentucky</option>
-                <option value="LA">Louisiana</option>
-                <option value="ME">Maine</option>
-                <option value="MD">Maryland</option>
-                <option value="MA">Massachusetts</option>
-                <option value="MI">Michigan</option>
-                <option value="MN">Minnesota</option>
-                <option value="MS">Mississippi</option>
-                <option value="MO">Missouri</option>
-                <option value="MT">Montana</option>
-                <option value="NE">Nebraska</option>
-                <option value="NV">Nevada</option>
-                <option value="NH">New Hampshire</option>
-                <option value="NJ">New Jersey</option>
-                <option value="NM">New Mexico</option>
-                <option value="NY">New York</option>
-                <option value="NC">North Carolina</option>
-                <option value="ND">North Dakota</option>
-                <option value="OH">Ohio</option>
-                <option value="OK">Oklahoma</option>
-                <option value="OR">Oregon</option>
-                <option value="PA">Pennsylvania</option>
-                <option value="RI">Rhode Island</option>
-                <option value="SC">South Carolina</option>
-                <option value="SD">South Dakota</option>
-                <option value="TN">Tennessee</option>
-                <option value="TX">Texas</option>
-                <option value="UT">Utah</option>
-                <option value="VT">Vermont</option>
-                <option value="VA">Virginia</option>
-                <option value="WA">Washington</option>
-                <option value="WV">West Virginia</option>
-                <option value="WI">Wisconsin</option>
-                <option value="WY">Wyoming</option>
+            <label for="lstOwnerState" value="<?php print $ownerState;?>">State: </label>
+            <select  id="lstOwnerState" name="lstOwnerState">
+                <option <?php if ($ownerState == "Alabama") print " selected "; ?> value="Alabama">Alabama</option>
+                <option <?php if ($ownerState == "Alaska") print " selected "; ?>value="Alaska">Alaska</option>
+                <option <?php if ($ownerState == "Arizona") print " selected "; ?>value="Arizona">Arizona</option>
+                <option <?php if ($ownerState == "Arkansas") print " selected "; ?>value="Arkansas">Arkansas</option>
+                <option <?php if ($ownerState == "California") print " selected "; ?>value="California">California</option>
+                <option <?php if ($ownerState == "Colorado") print " selected "; ?>value="Colorado">Colorado</option>
+                <option <?php if ($ownerState == "Connecticut") print " selected "; ?>value="Connecticut">Connecticut</option>
+                <option <?php if ($ownerState == "Delaware") print " selected "; ?>value="Delaware">Delaware</option>
+                <option <?php if ($ownerState == "District of Columbia") print " selected "; ?>value="District of Columbia">District Of Columbia</option>
+                <option <?php if ($ownerState == "Florida") print " selected "; ?>value="Florida">Florida</option>
+                <option <?php if ($ownerState == "Georgia") print " selected "; ?>value="Georgia">Georgia</option>
+                <option <?php if ($ownerState == "Hawaii") print " selected "; ?>value="Hawaii">Hawaii</option>
+                <option <?php if ($ownerState == "Idaho") print " selected "; ?>value="Idaho">Idaho</option>
+                <option <?php if ($ownerState == "Illinois") print " selected "; ?>value="Illinois">Illinois</option>
+                <option <?php if ($ownerState == "Indiana") print " selected "; ?>value="Indiana">Indiana</option>
+                <option <?php if ($ownerState == "Iowa") print " selected "; ?>value="Iowa">Iowa</option>
+                <option <?php if ($ownerState == "Kansas") print " selected "; ?>value="Kansas">Kansas</option>
+                <option <?php if ($ownerState == "Kentucky") print " selected "; ?>value="Kentucky">Kentucky</option>
+                <option <?php if ($ownerState == "Louisiana") print " selected "; ?>value="Lousiana">Louisiana</option>
+                <option <?php if ($ownerState == "Maine") print " selected "; ?>value="Maine">Maine</option>
+                <option <?php if ($ownerState == "Maryland") print " selected "; ?>value="Maryland">Maryland</option>
+                <option <?php if ($ownerState == "Massachusetts") print " selected "; ?>value="Massachussetts">Massachusetts</option>
+                <option <?php if ($ownerState == "Michigian") print " selected "; ?>value="Michigan">Michigan</option>
+                <option <?php if ($ownerState == "Minnesota") print " selected "; ?>value="Minessota">Minnesota</option>
+                <option <?php if ($ownerState == "Mississippi") print " selected "; ?>value="Mississippi">Mississippi</option>
+                <option <?php if ($ownerState == "Missouri") print " selected "; ?>value="Missouri">Missouri</option>
+                <option <?php if ($ownerState == "Montana") print " selected "; ?>value="Montana">Montana</option>
+                <option <?php if ($ownerState == "Nebraska") print " selected "; ?>value="Nebraska">Nebraska</option>
+                <option <?php if ($ownerState == "Nevada") print " selected "; ?>value="Nevada">Nevada</option>
+                <option <?php if ($ownerState == "New Hampshire") print " selected "; ?>value="New Hampshire">New Hampshire</option>
+                <option <?php if ($ownerState == "New Jersey") print " selected "; ?>value="New Jersey">New Jersey</option>
+                <option <?php if ($ownerState == "New Mexico") print " selected "; ?>value="New Mexico">New Mexico</option>
+                <option <?php if ($ownerState == "New York") print " selected "; ?>value="New York">New York</option>
+                <option <?php if ($ownerState == "North Carolina") print " selected "; ?>value="North Carolina">North Carolina</option>
+                <option <?php if ($ownerState == "North Dakota") print " selected "; ?>value="North Dakota">North Dakota</option>
+                <option <?php if ($ownerState == "Ohio") print " selected "; ?>value="Ohio">Ohio</option>
+                <option <?php if ($ownerState == "Oklahoma") print " selected "; ?>value="Oklahoma">Oklahoma</option>
+                <option <?php if ($ownerState == "Oregon") print " selected "; ?>value="Oregon">Oregon</option>
+                <option <?php if ($ownerState == "Pennsylvania") print " selected "; ?>value="Pennsylvania">Pennsylvania</option>
+                <option <?php if ($ownerState == "Rhode Island") print " selected "; ?>value="Rhode Island">Rhode Island</option>
+                <option <?php if ($ownerState == "South Carolina") print " selected "; ?>value="South Carolina">South Carolina</option>
+                <option <?php if ($ownerState == "South Dakota") print " selected "; ?>value="South Dakota">South Dakota</option>
+                <option <?php if ($ownerState == "Tennessee") print " selected "; ?>value="Tennessee">Tennessee</option>
+                <option <?php if ($ownerState == "Texas") print " selected "; ?>value="Texas">Texas</option>
+                <option <?php if ($ownerState == "Utah") print " selected "; ?>value="Utah">Utah</option>
+                <option <?php if ($ownerState == "Vermont") print " selected "; ?>value="Vermont">Vermont</option>
+                <option <?php if ($ownerState == "Virginia") print " selected "; ?>value="Virginia">Virginia</option>
+                <option <?php if ($ownerState == "Washington") print " selected "; ?>value="Washington">Washington</option>
+                <option <?php if ($ownerState == "West Virginia") print " selected "; ?>value="West Virginia">West Virginia</option>
+                <option <?php if ($ownerState == "Wisconsin") print " selected "; ?>value="Wisconsin">Wisconsin</option>
+                <option <?php if ($ownerState == "Wyoming") print " selected "; ?>value="Wyoming">Wyoming</option>
             </select>
             <label for="txtPetDesc" class="required">Pet Description
                 <input type="text" id="txtPetDesc" name="txtPetDesc"

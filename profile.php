@@ -7,17 +7,7 @@ $user = $thisDatabaseReader->select($query, $data, 1, 0, 0, 0);
 $query = 'SELECT fldURL FROM tblPhotos INNER JOIN tblUserPhotos ON tblPhotos.pmkPhotoId=tblUserPhotos.fnkPhotoId WHERE tblUserPhotos.fnkUserId=?';
 $data = array($username);
 $photo = $thisDatabaseReader->select($query, $data, 1, 0, 0, 0);
-print_r($photo);
-if ($_POST){
-    $newName = $_POST['fldPetName'];
 
-    $query = 'UPDATE tblOwners
-SET fldDesc = ?, `fldOwnerName`=?,`fldEmail`=?,`fldPhone`=?,`fldCity`=?,`fldPetName`=?,`fldPetType`=?,`fldPetAge`=?,`fldState`=?
-WHERE pmkId = ?';
-    $data=array($_POST['fldDesc']);
-
-
-}
 
 ?>
 
@@ -41,11 +31,6 @@ WHERE pmkId = ?';
             <li><?php echo $user[0]['fldDesc'];?></li>
         </ul>
     </aside>
-    <figure class='swipe'>
-        <a href=''><img src='images/cross.png' class='cross' alt='Not Interested' title='cross'></a>
-        <a href=''><img src='images/check.png' class='check' alt='Interested' title='check'></a>
-        <div class='align'></div>
-    </figure>
 
 </article>
 

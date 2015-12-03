@@ -121,7 +121,13 @@ require_once('lib/custom-functions.php');
         $dbUserName = 'dschick_admin';
         $whichPass = "a";
         $thisDatabaseAdmin = new Database($dbUserName, $whichPass, $dbName);
+
+        if ($path_parts['filename'] == "profileUpdate") {
+            include "lib/validation-functions.php";
+        }
         ?>
+
+
 
     </head>
 
@@ -132,7 +138,6 @@ require_once('lib/custom-functions.php');
     // $OwnerQuery = $thisDatabaseReader->select("SELECT * FROM tblOwners WHERE pmkId=?",array($username), 1, 0, 0, 0);
     // print_r($nonOwnerQuery, $OwnerQuery);
     // if(empty($OwnerQuery) AND empty($NonOwnerQuery)){
-
     // }
     print '<body id="' . $path_parts['filename'] . '">';
     include "header.php";

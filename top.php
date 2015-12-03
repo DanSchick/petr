@@ -121,6 +121,9 @@ require_once('lib/custom-functions.php');
         $dbUserName = 'dschick_admin';
         $whichPass = "a";
         $thisDatabaseAdmin = new Database($dbUserName, $whichPass, $dbName);
+        if ($path_parts['filename'] == "profileUpdate") {
+            include "lib/validation-functions.php";
+        }
         ?>
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
