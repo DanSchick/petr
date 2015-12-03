@@ -20,8 +20,11 @@ $query = 'SELECT fldURL FROM tblPhotos INNER JOIN tblUserPhotos ON tblPhotos.pmk
 $data = array($profiles[0]['pmkId']);
 $photo = $thisDatabaseReader->select($query, $data, 1, 0, 0, 0);
 
+if(empty($profiles)){
+  print "<article  id='noProfiles' class='box animate fadeIn one'><h1>No more profiles to show</h1><h2>Check back later!</h2><figure><img src='images/sadDog.gif'></figure></article>";
+  print "<script>$('#card').css('display', 'none')";
+}
 ?>
-
 <!-- ****************** BEGIN HTML PAGE **************** -->
 <div id='holder'></div>
 <article id='card' class='box animate fadeInLeft one'>
