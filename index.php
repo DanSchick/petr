@@ -1,7 +1,5 @@
 
 <!-- first, we import the libs for the image slider -->
-<script type='text/javascript' src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.7/slick.min.js"></script>
 
 <?php
 include 'top.php';
@@ -22,15 +20,10 @@ $query = 'SELECT fldURL FROM tblPhotos INNER JOIN tblUserPhotos ON tblPhotos.pmk
 $data = array($profiles[0]['pmkId']);
 $photo = $thisDatabaseReader->select($query, $data, 1, 0, 0, 0);
 
-if($username == 'dschick'){
-  $query = 'DELETE * FROM tblSeen';
-  $delete = $thisDatabaseWriter->delete($query, "", 0, 0);
-}
-
 ?>
 
 <!-- ****************** BEGIN HTML PAGE **************** -->
-<div id='holder'style='block'></div>
+<div id='holder'></div>
 <article id='card' class='box animate fadeInLeft one'>
     <section class="cardTitle">
         <h1 class="petTitle"><?php echo $profiles[0]['fldPetName'];?></h1>
@@ -129,7 +122,7 @@ function like(){
             $('#card').addClass('box animate fadeOutDown');
             $('#holder').append('<div class="status dislike">Dislike!</div>');
             setTimeout(function(){
-                window.location.reload()},1000);
+                window.location.reload(true)},1000);
   }
 
 var picNum = 0;
