@@ -37,11 +37,13 @@ figure{
     text-align: center;
 }
 
-ol{
-
+ol.nav{
     display: none;
 }
-nav{
+/*ol.errors{
+    display: block;
+}/
+*/nav{
     height: 60px;
     width: 60px;
     float: left;
@@ -540,7 +542,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 /*=== FADE IN LEFT ===*/
 @-webkit-keyframes fadeInLeft {
     from {
-        opacity: 0;
+        opacity: 1;
         -webkit-transform: translate3d(-100%, 0, 0);
         transform: translate3d(-100%, 0, 0);
     }
@@ -553,7 +555,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 }
 @keyframes fadeInLeft {
     from {
-        opacity: 0;
+        opacity: 1;
         -webkit-transform: translate3d(-100%, 0, 0);
         transform: translate3d(-100%, 0, 0);
     }
