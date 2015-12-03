@@ -30,7 +30,7 @@ if($username == 'dschick'){
 ?>
 
 <!-- ****************** BEGIN HTML PAGE **************** -->
-<div id='holder'></div>
+<div id='holder'style='block'></div>
 <article id='card' class='box animate fadeInLeft one'>
     <section class="cardTitle">
         <h1 class="petTitle"><?php echo $profiles[0]['fldPetName'];?></h1>
