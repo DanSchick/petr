@@ -122,7 +122,7 @@ if (isset($_POST["btnSubmit"])) {
                   print '<div class="avatar" style="background-image: url(' . $photo[0][0] . ')"></div>';
                 }
                 ?>
-                </div>
+                </div><img id="delete" src="images/trash.png">
     </div>
     <div class='clas'><a href='upload.php' data-ajax="false"><button>Upload a photo</a></button></div>
 
@@ -276,11 +276,41 @@ if (isset($_POST["btnSubmit"])) {
     </form>
     <?php if(!$errorMsg){print "<script>
   $('.buddy').slick();
+  var picI = 1;
 </script>";}?>
 
     <?php
     include 'footer.php';
     ?>
+
+<script>
+var userID = '<?php echo $username;?>';
+// first, we make the pic index variable follow the picture changes
+$('.slick-next').on('click', function(){
+  if(picI == <?php echo count($photo);?>){
+    picI = 1;
+  } else {
+    picI += 1;
+  } console.log(picI);
+});
+
+$('.slick-prev').on('click', function(){
+  if(picI == 1){
+    picI = <?php echo count($photo);?>;
+  } else {
+    picI -= 1;
+  } console.log(picI);
+});
+
+
+$('#delete').on('click', function() {
+  $.post('deletePhoto.php', { userid: userID, picI : picI},
+                               function(returnedData){
+                                       console.log(returnedData);
+                                 });
+
+})
+</script>
 </body>
 </html>
 
