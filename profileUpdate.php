@@ -93,18 +93,19 @@ if (isset($_POST["btnSubmit"])) {
     }
 
     if (!$errorMsg) {
-
+      print '<script>$(".skills_section").slick("unslick");</script>';
 
         $updateQuery = 'UPDATE tblOwners SET fldDesc = ?, fldOwnerName = ?, fldCity =?, fldPetName =?, fldPetType = ?, fldPetAge = ?, fldState = ? where pmkId = ?';
 
 
         $updateData = array($_POST['txtPetDesc'], $_POST['txtOwnerName'], $_POST['txtOwnerCity'], $_POST['txtPetName'], $_POST['txtPetType'], $_POST['intPetAge'], $_POST['lstOwnerState'], $username);
         $updater = $thisDatabaseWriter->update($updateQuery, $updateData, 1, 0, 0, 0);
-        header("Location: profile.php");
+        print '<script>window.location.replace("profile.php");</script>';
+        die();
     }
 }
 ?>
-<form action="<?php print $phpSelf; ?>"
+<form action=" "
               method="post"
               id="frmRegister">
     <section class="cardTitle">
@@ -124,7 +125,7 @@ if (isset($_POST["btnSubmit"])) {
                 ?>
                 </div><img id="delete" src="images/trash.png">
     </div>
-    <div class='clas'><a href='upload.php' data-ajax="false"><button>Upload a photo</a></button></div>
+    <div class='clas'><a href='upload.php' rel="external" data-ajax="false"><button id='uploadLink'>Upload a photo</button></a></div>
 
  <?php
         // SECTION 3b Error Messages
@@ -274,10 +275,11 @@ if (isset($_POST["btnSubmit"])) {
 
 
     </form>
-    <?php if(!$errorMsg){print "<script>
+    <?php if(!$_POST){if(!$errorMsg){
+      print "<script>
   $('.buddy').slick();
   var picI = 1;
-</script>";}?>
+</script>";}}?>
 
     <?php
     include 'footer.php';
@@ -306,11 +308,18 @@ $('.slick-prev').on('click', function(){
 $('#delete').on('click', function() {
   $.post('deletePhoto.php', { userid: userID, picI : picI},
                                function(returnedData){
-                                       console.log(returnedData);
+                                       if(returnedData == '1'){
+                                            window.location.replace("profileUpdate.php");
+                                       }
                                  });
 
 })
+
+$('#uploadLink').on('click', function() {
+  window.location.replace("upload.php");
+})
 </script>
+</div>
 </body>
 </html>
 

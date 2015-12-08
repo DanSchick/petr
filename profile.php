@@ -41,8 +41,11 @@ $photo = $thisDatabaseReader->select($query, $data, 1, 0, 0, 0);
 
 </article>
 <script>
+$(document).ready(function() {
 $('.buddy').slick();
+});
 </script>
+
 <?php
 include 'footer.php';
 ?>

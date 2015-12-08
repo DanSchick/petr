@@ -101,21 +101,20 @@
         $dbUserName = get_current_user() . '_writer';
         $whichPass = "w";
         $thisDatabaseWriter = new Database($dbUserName, $whichPass, $dbName);
-        echo 'flag';
 
         if($_POST){
-            $pID = $_POST('picI');
-            $user = $_POST('userid');
+            $pID = $_POST["picI"];
+            $user = $_POST['userid'];
             $q = 'SELECT fnkPhotoId FROM tblUserPhotos WHERE fnkUserId =?';
             $data = array($user);
             $ids = $thisDatabaseReader->select($q, $data, 1, 0);
-            $photo = $ids[$pID+1][0];
+            $photo = $ids[$pID-1][0];
             $q2 = 'DELETE FROM tblUserPhotos WHERE fnkPhotoId=?';
             $data = array($photo);
             $del = $thisDatabaseWriter->delete($q2, $data, 1, 0);
             $q3 = 'DELETE FROM tblPhotos WHERE pmkPhotoId=?';
             $data = array($photo);
             $del = $thisDatabaseWriter->delete($q3, $data, 1, 0);
-            echo 'flag';
+            echo '1';
         }
 
