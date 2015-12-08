@@ -11,6 +11,7 @@ Select Image:
 <?php
 include 'footer.php';
 ?>
+</div>
 </body>
 
 </HTML>

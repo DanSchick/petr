@@ -93,18 +93,19 @@ if (isset($_POST["btnSubmit"])) {
     }
 
     if (!$errorMsg) {
-
+      print '<script>$(".skills_section").slick("unslick");</script>';
 
         $updateQuery = 'UPDATE tblOwners SET fldDesc = ?, fldOwnerName = ?, fldCity =?, fldPetName =?, fldPetType = ?, fldPetAge = ?, fldState = ? where pmkId = ?';
 
 
         $updateData = array($_POST['txtPetDesc'], $_POST['txtOwnerName'], $_POST['txtOwnerCity'], $_POST['txtPetName'], $_POST['txtPetType'], $_POST['intPetAge'], $_POST['lstOwnerState'], $username);
         $updater = $thisDatabaseWriter->update($updateQuery, $updateData, 1, 0, 0, 0);
-        header("Location: profile.php");
+        print '<script>window.location.replace("profile.php");</script>';
+        die();
     }
 }
 ?>
-<form action="<?php print $phpSelf; ?>"
+<form action=" "
               method="post"
               id="frmRegister">
     <section class="cardTitle">
@@ -122,9 +123,9 @@ if (isset($_POST["btnSubmit"])) {
                   print '<div class="avatar" style="background-image: url(' . $photo[0][0] . ')"></div>';
                 }
                 ?>
-                </div>
+                </div><img id="delete" src="images/trash.png">
     </div>
-    <div class='clas'><a href='upload.php' data-ajax="false"><button>Upload a photo</a></button></div>
+    <div class='clas'><a href='upload.php' rel="external" data-ajax="false"><button id='uploadLink'>Upload a photo</button></a></div>
 
  <?php
         // SECTION 3b Error Messages
@@ -274,13 +275,51 @@ if (isset($_POST["btnSubmit"])) {
 
 
     </form>
-    <?php if(!$errorMsg){print "<script>
+    <?php if(!$_POST){if(!$errorMsg){
+      print "<script>
   $('.buddy').slick();
-</script>";}?>
+  var picI = 1;
+</script>";}}?>
 
     <?php
     include 'footer.php';
     ?>
+
+<script>
+var userID = '<?php echo $username;?>';
+// first, we make the pic index variable follow the picture changes
+$('.slick-next').on('click', function(){
+  if(picI == <?php echo count($photo);?>){
+    picI = 1;
+  } else {
+    picI += 1;
+  } console.log(picI);
+});
+
+$('.slick-prev').on('click', function(){
+  if(picI == 1){
+    picI = <?php echo count($photo);?>;
+  } else {
+    picI -= 1;
+  } console.log(picI);
+});
+
+
+$('#delete').on('click', function() {
+  $.post('deletePhoto.php', { userid: userID, picI : picI},
+                               function(returnedData){
+                                       if(returnedData == '1'){
+                                            window.location.replace("profileUpdate.php");
+                                       }
+                                 });
+
+})
+
+$('#uploadLink').on('click', function() {
+  window.location.replace("upload.php");
+})
+</script>
+</div>
 </body>
 </html>
 

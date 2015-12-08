@@ -1,24 +1,6 @@
 <?php
-include "lib/constants.php";
-require_once('lib/custom-functions.php');
-?>
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>Petr - People Helping Pets</title>
-        <meta charset="utf-8">
-        <meta name="author" content="Samuel Pakulski and Danny Schick">
-        <meta name="description" content="Petr is a place for pet owners to offer there pets love, and for people looking for some love to play with animals">
-
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <!--[if lt IE 9]>
-        <script src="//html5shim.googlecode.com/sin/trunk/html5.js"></script>
-        <![endif]-->
-
-        <link rel="stylesheet" href="css/base.css" type="text/css" media="screen">
-
-        <?php
+        // we have to import top.php, but only the parts that don't print HTML.
+        // Otherwise, returning data to the AJAX call won't work.
         $debug = false;
 
         // %^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
@@ -32,6 +14,8 @@ require_once('lib/custom-functions.php');
         //     www-logs
         //     www-root
 
+        include "lib/constants.php";
+        require_once('lib/custom-functions.php');
 
         $includeDBPath = "../bin/";
         $includeLibPath = "../lib/";
@@ -108,49 +92,29 @@ require_once('lib/custom-functions.php');
         // Set up database connection
         //
 
-        $dbUserName = 'dschick_reader';
+        $dbUserName = get_current_user() . '_reader';
         $whichPass = "r"; //flag for which one to use.
         $dbName = DATABASE_NAME;
 
         $thisDatabaseReader = new Database($dbUserName, $whichPass, $dbName);
 
-        $dbUserName = 'dschick_writer';
+        $dbUserName = get_current_user() . '_writer';
         $whichPass = "w";
         $thisDatabaseWriter = new Database($dbUserName, $whichPass, $dbName);
 
-        $dbUserName = 'dschick_admin';
-        $whichPass = "a";
-        $thisDatabaseAdmin = new Database($dbUserName, $whichPass, $dbName);
-        if ($path_parts['filename'] == "profileUpdate") {
-            include "lib/validation-functions.php";
+        if($_POST){
+            $pID = $_POST["picI"];
+            $user = $_POST['userid'];
+            $q = 'SELECT fnkPhotoId FROM tblUserPhotos WHERE fnkUserId =?';
+            $data = array($user);
+            $ids = $thisDatabaseReader->select($q, $data, 1, 0);
+            $photo = $ids[$pID-1][0];
+            $q2 = 'DELETE FROM tblUserPhotos WHERE fnkPhotoId=?';
+            $data = array($photo);
+            $del = $thisDatabaseWriter->delete($q2, $data, 1, 0);
+            $q3 = 'DELETE FROM tblPhotos WHERE pmkPhotoId=?';
+            $data = array($photo);
+            $del = $thisDatabaseWriter->delete($q3, $data, 1, 0);
+            echo '1';
         }
-        ?>
-
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.8/slick.css"/>
-        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.8/slick-theme.css"/> -->
-
-        <script type='text/javascript' src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-        <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.7/slick.min.js"></script>
-        <script type='text/javascript' src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-
-
-    </head>
-
-    <!-- **********************     Body section      ********************** -->
-    <?php
-    $username = htmlentities($_SERVER["REMOTE_USER"], ENT_QUOTES, "UTF-8");
-    // $nonOwnerQuery = $thisDatabaseReader->select("SELECT * FROM tblNonOwners WHERE pmkId=?",array($username), 1, 0, 0, 0);
-    // $OwnerQuery = $thisDatabaseReader->select("SELECT * FROM tblOwners WHERE pmkId=?",array($username), 1, 0, 0, 0);
-    //print_r($nonOwnerQuery, $OwnerQuery);
-    // if(empty($OwnerQuery) AND empty($NonOwnerQuery)){
-    //     HEADER('Location: newUser.php');
-    // }
-    print '<body id="' . $path_parts['filename'] . '">';
-    print '<div data-role="page" >';
-
-
-    include "header.php";
-    ?>
-
 
