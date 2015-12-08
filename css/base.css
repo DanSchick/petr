@@ -70,6 +70,8 @@ ol.nav{
     font-size: 125%;
     overflow: hidden;
     transition: height 0.5s ease;
+    border-right: thin solid darkgray;
+    border-bottom: thin solid darkgray;
 
 }
 
@@ -280,7 +282,7 @@ table { border-collapse: collapse; border-spacing: 0; }
     width: 360px;
     height: 380px;
     top: 50px;
-    left: 30%;
+    left: 25%;
     position: absolute;
     cursor: hand;
 }
