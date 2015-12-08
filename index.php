@@ -10,9 +10,9 @@ $data = array($username);
 $insert = $thisDatabaseWriter->insert($query, $data);
 
 // we get a query of every profile that the user hasn't seen before
-$query = 'SELECT * FROM tblOwners INNER JOIN tblSeen ON tblSeen.fnkProfileId=tblOwners.pmkId WHERE tblSeen.pmkUserId = ? AND tblSeen.fldSeen = 0';
-$data = array($username);
-$profiles = $thisDatabaseReader->select($query, $data, 1, 1);
+$query = 'SELECT * FROM tblOwners INNER JOIN tblSeen ON tblSeen.fnkProfileId=tblOwners.pmkId WHERE tblSeen.pmkUserId = ? AND tblSeen.fldSeen = 0 AND tblOwners.pmkId != ?';
+$data = array($username, $username);
+$profiles = $thisDatabaseReader->select($query, $data, 1, 3);
 
 
 // we get all photos that belong to the first user in the profiles array we just selected
@@ -62,8 +62,6 @@ if(empty($profiles)){
 
 </article>
 
-</body>
-</html>
 
 
 
@@ -193,3 +191,7 @@ $(document).ready(function() {
 <?php
 include 'footer.php';
 ?>
+
+</body>
+</html>
+

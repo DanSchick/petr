@@ -125,7 +125,7 @@ if (isset($_POST["btnSubmit"])) {
                 ?>
                 </div><img id="delete" src="images/trash.png">
     </div>
-    <div class='clas'><a href='upload.php' rel="external" data-ajax="false"><button id='uploadLink'>Upload a photo</button></a></div>
+    <div class='clas'><a id='uploadButton' href='upload.php' data-ajax="false"><button id='uploadLink'>Upload a photo</a></button></div>
 
  <?php
         // SECTION 3b Error Messages
@@ -261,7 +261,7 @@ if (isset($_POST["btnSubmit"])) {
             <label for="txtPetDesc" class="required">Pet Description
                 <input type="text" id="txtPetDesc" name="txtPetDesc"
                        value="<?php print $petDesc; ?>"
-                       tabindex="100" maxlength="45" placeholder="Enter A Description Of Your Pet, and What You Are Looking For In Somebody Else!"
+                       tabindex="100" maxlength="500" placeholder="Enter A Description Of Your Pet, and What You Are Looking For In Somebody Else!"
                        <?php
                        if ($petDescError) {
                            print 'class="mistake"';
@@ -317,7 +317,7 @@ $('#delete').on('click', function() {
 
 $('#uploadLink').on('click', function() {
   window.location.replace("upload.php");
-})
+});
 </script>
 </div>
 </body>
