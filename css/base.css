@@ -37,19 +37,6 @@ figure{
     text-align: center;
 }
 
-ol.nav{
-    width: 10%;
-    top: 20px;
-    position: fixed;
-    padding-top: 0px;
-    -webkit-transition: padding-top 2s ease-in;
-    transition: padding-top 2s ease-in;
-}
-
-ol.nav li{
-    display: none;
-}
-
 nav{
     height: 60px;
     width: 60px;
@@ -59,8 +46,28 @@ img.menuIcon{
     height: 60px;
     width: 60px;
 }
+ol.nav{
+    width: 10%;
+    height: 0px;
+    position: absolute;
+    top: 60px;
+    padding-top: 0px !important;
+    margin-top: 0px !important;
+    background-color: rgba(116,220,232,.4);
+    font-size: 125%;
+    overflow: hidden;
+    transition: height 0.5s ease;
+}
+nav:hover > ol{
+    overflow: hidden;
+    height: 180px;
+}
+ol.nav li{
+    padding-top: 1.5em;
+    list-style-type: none;
+}
 /* ANIMATION STATION */
-
+/*
 nav:hover > ol li{
     overflow: hidden;
     display: block;
@@ -68,12 +75,7 @@ nav:hover > ol li{
 }
 
 
-nav:hover > ol{
-    display: block;
-    background-color: white;
-    border: thin solid grey;
-    padding-top: 50px;
-}
+*/
 /******* BODY SECTION ************/
 body{
     margin-left: 0px !important;
