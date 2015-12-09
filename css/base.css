@@ -288,7 +288,7 @@ table { border-collapse: collapse; border-spacing: 0; }
     width: 360px;
     height: 380px;
     top: 50px;
-    left: 25%;
+    left: 30%;
     position: absolute;
     cursor: hand;
 }
