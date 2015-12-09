@@ -9,7 +9,6 @@ $profiles = $thisDatabaseReader->select($query, $data, 0, 1);
 
 if(empty($profiles)){
     print "<article  id='noProfiles' class='box animate fadeIn one'><h1>No Matches</h1><h2>Check back in a bit!</h2><figure><img src='images/sadDog.gif'></figure></article>";
-    include "footer.php";
     print "<script>$('#matches').css('display', 'none')";
 }
 ?>
@@ -21,7 +20,7 @@ if(empty($profiles)){
     <table>
         <thead>
             <tr>
-                <th></th>
+
                 <th> Pet Name </th>
                 <th> Owner Name </th>
                 <th> Pet Type </th>
@@ -31,7 +30,7 @@ if(empty($profiles)){
         <?php
         foreach($profiles as $prof){
             print '<tr>
-            <td><img></td>
+
             <td> <a href=match.php?username=' . $prof['pmkId'] . '>' . $prof['fldPetName'] . '</a> </td>
             <td> ' . $prof['fldOwnerName'] . ' </td>
             <td> ' . $prof['fldPetType'] . ' </td>

@@ -4,6 +4,8 @@ if($username == 'dschick'){
     $delete = $thisDatabaseWriter->delete($q1, "", 0, 0);
     $q2 = "DELETE FROM tblRelations WHERE fnkUserId='dschick'";
     $delete = $thisDatabaseWriter->delete($q2, "", 1, 0, 2);
+    $q2 = "DELETE FROM tblRelations WHERE fnkUserId='spakulsk'";
+    $delete = $thisDatabaseWriter->delete($q2, "", 1, 0, 2);
 
 }
 
