@@ -31,7 +31,7 @@ if(empty($profiles)){
         foreach($profiles as $prof){
             print '<tr>
 
-            <td> <a href=match.php?username=' . $prof['pmkId'] . '>' . $prof['fldPetName'] . '</a> </td>
+            <td> <a data-ajax="false" href=match.php?username=' . $prof['pmkId'] . '>' . $prof['fldPetName'] . '</a> </td>
             <td> ' . $prof['fldOwnerName'] . ' </td>
             <td> ' . $prof['fldPetType'] . ' </td>
             <td> ' . $prof['fldCity'] . ', ' .  $prof['fldState'] . ' </td>
