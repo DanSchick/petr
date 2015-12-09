@@ -124,7 +124,7 @@ article{
 }
 section.cardTitle{
     border-radius: 1em 1em 0px 0px;
-    background-color: #303030;
+    background-color: #3b5998;
     padding: 1em;
     border: thin solid lightgrey;
     color: #EBEBEB;
@@ -178,7 +178,7 @@ span.important{
 }
 figure.swipe{
     padding: .5em;
-    background-color: #303030;
+    background-color: #3b5998;
     border-radius: 0px 0px 1em 1em;
 }
 img.cross{
