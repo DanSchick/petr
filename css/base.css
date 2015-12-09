@@ -24,6 +24,12 @@ img.pageTitle{
     margin: auto;
     margin-top: 10px;
 }
+#delete{
+    padding-top: 40%;
+    width: 50px;
+    padding-left: 69%;
+}
+
 
 #uploadButton {
     padding-left: 45%;
