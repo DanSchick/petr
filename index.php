@@ -134,13 +134,7 @@ $(document).ready(function() {
 
     // this creates the image slider
     $('.buddy').slick();
-  $(".buddy").on("swiperight", function() {
-    like();
-  });
 
-  $(".buddy").on("swipeleft", function() {
-    dislike();
-  });
 
   $(".cross").on("click", function() {
     dislike();
