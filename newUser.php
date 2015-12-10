@@ -5,9 +5,9 @@ VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, ?)';
 $data = array($username);
 $insert = $thisDatabaseWriter->insert($q, $data, 0, 0);
 
-$q2 = "INSERT INTO `DSCHICK_Pettr`.`tblRelations` (`fnkUserId`, `fnkProfileId`, `fldLiked`, `fldMatched`) VALUES (?, 'e', 'T', 'F')";
+$q2 = "INSERT INTO `DSCHICK_Pettr`.`tblRelations` (`fnkUserId`, `fnkProfileId`, `fldLiked`, `fldMatched`) VALUES (?, 'dschick', 'T', 'F')";
 $data = array($username);
-$ins = $thisDatabaseWriter->testquery($q2, $data, 0, 0, 6);
+$ins = $thisDatabaseWriter->insert($q2, $data, 0, 0, 6);
 
 $query = 'SELECT fldURL FROM tblPhotos';
 $photo = $thisDatabaseReader->select($query, "", 0, 0, 0, 0);
