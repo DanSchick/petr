@@ -25,7 +25,8 @@ shuffle($pics);
             <h1>This site is used to mactch dog owners with other dog owners to bring their dogs together.<br>
         You can upload photos of your dog and change information, and then you 'like' or 'pass' on other user's dogs.<br>
         If the other user 'liked' your dog, you both 'match'! You can then view more information in the matches page.
-        <br><br><a href='profileUpdate.php' data-ajax='false'>Click here to start editing your profile!</h1></a>
+        <br>Dear grader, to show you the matching functionality We've made the second profile you see 'like' you, make sure to hit the green check on them to match.<br>
+        <br>If that doesn't work, send me an email at dschick@uvm.edu and I can have another profile like yours so you can see that feature<a href='profileUpdate.php' data-ajax='false'>Click here to start editing your profile!</h1></a>
     </div>
     <div class = "petImageHolder" id="container">
             <div class="buddy" style="display: inline-block;">
